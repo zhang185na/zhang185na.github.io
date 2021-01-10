@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhang185a.gitee.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="背包问题 内容大部分总结自崔添翼的《背包问题九讲》。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="背包问题">
+<meta property="og:url" content="http://zhang185a.gitee.io/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Zhang185&#39;s blog">
+<meta property="og:description" content="背包问题 内容大部分总结自崔添翼的《背包问题九讲》。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-02T17:45:04.000Z">
+<meta property="article:modified_time" content="2020-08-02T17:45:04.000Z">
+<meta property="article:author" content="zhang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zhang185a.gitee.io/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>背包问题 | Zhang185's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhang185's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          背包问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-03 01:45:04" itemprop="dateCreated datePublished" datetime="2020-08-03T01:45:04+08:00">2020-08-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h1><blockquote>
+<p>内容大部分总结自崔添翼的《背包问题九讲》。</p>
+</blockquote>
+<a id="more"></a> 
+<h2 id="什么是背包问题"><a href="#什么是背包问题" class="headerlink" title="什么是背包问题"></a>什么是背包问题</h2><blockquote>
+<p>有 N 件（种）物品和一个容量为 V 的背包。第 i 件（种）物品的体积是 C<sub>i</sub> 得到的价值是 W<sub>i</sub> ，求解将哪些物品装入背包可使价值总和最大。</p>
+</blockquote>
+<p>形如以上的就是背包问题了，当然随着具体背包问题的种类不同，具体内容也会有所不同，但是其中的关键就是 <strong>物品费用</strong> 及 <strong>背包容量</strong>，而解题常用的方法是动态规划。</p>
+<h3 id="背包问题的分类"><a href="#背包问题的分类" class="headerlink" title="背包问题的分类"></a>背包问题的分类</h3><p>基础背包问题的种类有</p>
+<ul>
+<li>01背包 </li>
+<li>完全背包</li>
+<li>多重背包</li>
+</ul>
+<p>难度也是大致逐渐上涨的，其中01背包也是众多背包中的基础。</p>
+<h2 id="0-部分背包"><a href="#0-部分背包" class="headerlink" title="0. 部分背包*"></a>0. 部分背包*</h2><blockquote>
+<p>有 N 件物品和一个容量为 V 的背包。第 i 件物品的体积是 C<sub>i</sub> 得到的价值是 W<sub>i</sub> ，<strong>物品可以分割成任意大小</strong>，其分割后的价值比不变，求解将哪些物品装入背包可使价值总和最大。  </p>
+</blockquote>
+<p>如洛谷中： <a href="https://www.luogu.com.cn/problem/P1208" target="_blank" rel="noopener">P1208 [USACO1.3]混合牛奶 Mixing Milk</a></p>
+<p>为了使利益最大化，当然首先选择单价最便宜的牛奶，然后不断选择次便宜的牛奶直至达到需求量。<br>因此只需要以牛奶的单价对牛奶进行排序（此步可以用结构体来储存单价与产量，也可用stl中的 pair 容器，后者的相对优势就是可以不用写比较函数，再调用 STL 中的 sort 函数进行排序）然后依次选择直至达到需求。  </p>
+<pre><code>一般化：
+本题的牛奶单价就是“价值比”，产量就是物品体积。其中的思想是 贪心思想 ，始终贪心地只选择当前价值比最高的物品。</code></pre><p>部分背包算是背包问题中的一个特例，许多总结背包问题的都没有提及部分背包，归根结底就是因为其思想的特殊性。</p>
+<h2 id="1-01背包"><a href="#1-01背包" class="headerlink" title="1. 01背包"></a>1. 01背包</h2><blockquote>
+<p>有 N 件物品和一个容量为 V 的背包。第 i 件物品的体积是 C<sub>i</sub> 得到的价值是 W<sub>i</sub> ，<strong>每件物品至多选择一次</strong>，求解将哪些物品装入背包可使价值总和最大。</p>
+</blockquote>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1060" target="_blank" rel="noopener">P1060 开心的金明</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P1048" target="_blank" rel="noopener">P1048 采药</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P1164" target="_blank" rel="noopener">P1164 小A点菜</a>  </li>
+</ul>
+<p>这三题都是基础的01背包，变形不大，以模版的 <code>N V i</code> 为例</p>
+<h4 id="解1-（暴力搜索）"><a href="#解1-（暴力搜索）" class="headerlink" title="解1*（暴力搜索）"></a>解1*（暴力搜索）</h4><p>每一个物品都有拿与不拿两种选择，N 个物品，根据排列组合原理，对应2<sup>N</sup>种选择。对所有选择情况做遍历（如dfs，对每个物品遍历拿与不拿两种情况），记录下最优的情况。  </p>
+<p>剪枝优化：<br>可行性剪枝：每次搜索时，若该情况下物品体积和已超过背包容量 V 则直接回溯到上一个情况。</p>
+<p>(最坏)时间复杂度：O(2<sup>N</sup>)  </p>
+<p>缺点也很明显了，时间复杂度过高，指数级别。</p>
+<h4 id="解2-（二维动态规划）"><a href="#解2-（二维动态规划）" class="headerlink" title="解2 （二维动态规划）"></a>解2 （二维动态规划）</h4><p>状态表示：f[i] [v]表示前 i 件物品放入一个容量为 v 的背包获得的最大价值（不一定装满了背包）<sub>此处的状态定义与《背包九章》不同，但相似</sub></p>
+<p>状态转移方程：<br><code>f[i][v] = max(f[i-1][v], f[i-1][v-Ci] + Wi)</code></p>
+<blockquote>
+<p>以下内容抄自《背包九章》<br>这个方程非常重要，基本上所有跟背包相关的问题的方程都是由它衍生出来的。所以有必要将它详细解释一下:“将前 i 件物品放入容量为 v 的背包中”这个子问题，若只考虑第 i 件物品的策略(放或不放)，那么就可以转化为一个只和前 i − 1 件物品相关 的问题。如果不放第 i 件物品，那么问题就转化为“前 i − 1 件物品放入容量为 v 的背 包中”，价值为 f [i − 1, v];如果放第 i 件物品，那么问题就转化为“前 i − 1 件物品放 入剩下的容量为v−Ci 的背包中”，此时能获得的最大价值就是F[i−1,v−Ci]再加上 通过放入第 i 件物品获得的价值 Wi。</p>
+</blockquote>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">关键代码</span><br><span class="line"><span class="keyword">for</span>(int <span class="built_in">i</span>=<span class="number">0</span>;<span class="built_in">i</span>&lt;N;<span class="built_in">i</span>++)</span><br><span class="line">    <span class="keyword">for</span>(int v=C[<span class="built_in">i</span>];v&lt;=V;v++)</span><br><span class="line">        f[<span class="built_in">i</span>][v] = <span class="built_in">max</span>(f[<span class="built_in">i</span><span class="number">-1</span>][v], f[<span class="built_in">i</span><span class="number">-1</span>][v-C[<span class="built_in">i</span>]] + W[<span class="built_in">i</span>]);</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(NV)<br>空间复杂度：O(NV)</p>
+<h4 id="解2-5-一个可行的空间优化方法"><a href="#解2-5-一个可行的空间优化方法" class="headerlink" title="解2.5* 一个可行的空间优化方法"></a>解2.5* 一个可行的空间优化方法</h4><p>首先观察上例中的状态转移方程，计算 f[i] [v] 时仅用到了 f[i-1] 行的内容，即此时 f[i-2] 行及之前行的内容都没用了，完全可以舍弃他们，因此在计算时可以直接将值覆盖在上面。 </p>
+<p>最直接的方法就是开一个大小为 f[2] [V] 的数组<br>根据判断 i 是奇偶数从而储存在 f[0] 或 f[1] 行并利用 f[1] 或 f[0] 行的数据计算。  </p>
+<p>这样需要修改的部分少，只要把循环体改为<code>f[i%2][v] = max(f[(i-1)%2][v], f[(i-1)%2][v-C[i]] + W[i]);</code></p>
+<p>这种方法对空间复杂度的优化十分显著，对原代码改动也不大，思想也很一致，但是仍有更佳的方法——即使用<strong>一维数组</strong>。</p>
+<h4 id="解3-（一维动态规划，滚动数组）"><a href="#解3-（一维动态规划，滚动数组）" class="headerlink" title="解3 （一维动态规划，滚动数组）"></a>解3 （一维动态规划，滚动数组）</h4><p>状态表示：f[v]表示前 i 件物品放入一个容量为 v 的背包获得的最大价值（不一定装满了背包）</p>
+<p>状态转移方程：<br><code>f[v] = max(f[v], f[v-Ci] + Wi)</code>   </p>
+<p>使用一维数组时，考虑当计算第 i 个物品时的情况<br>还是观察上例中的状态转移方程，f[i] [v] 仅由 f[i-1] [v] 和 f[i-1] [v-Ci] 得到，因此只要在此时保证能取到这两个值即可。</p>
+<p>当计算第 i 个物品时，在还没有进行赋值操作时 f[v] 中储存的值相当于是二维数组中的 f[i-1] [v]，由于 Ci 的大小显然不是固定值，而为了使二维数组中的 f[i-1] [v-Ci] 能被取到，我们此时需要保证 f[0～v] 的数据尚未被更新，保存的仍是二维数组中的 f[i-1] [0～v]的数据，因此循环中应该倒序更新v值。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">关键代码</span><br><span class="line"><span class="keyword">for</span>(int <span class="built_in">i</span>=<span class="number">0</span>;<span class="built_in">i</span>&lt;N;<span class="built_in">i</span>++)</span><br><span class="line">    <span class="keyword">for</span>(int v=V;v&gt;=C[<span class="built_in">i</span>];v--)</span><br><span class="line">        f[v] = <span class="built_in">max</span>(f[v], f[v-C[<span class="built_in">i</span>]] + W[<span class="built_in">i</span>]);</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(NV)<br>空间复杂度：O(V)</p>
+<pre><code>01背包是所有背包的基础。  
+我在这里应该算是列出了01背包的四种解法的，理解难度也是逐渐增加，如果无法理解解法2（二维）或解法四（一维）的建议去看看洛谷上的题解，看看他们的理解，然后自己跟着单步调试一下，或者去百度搜下01背包然后看看别人的博客吧。  
+《背包九讲》中还提出了一个常数优化，个人觉得意义不大，想看的也可以去看下。</code></pre><h2 id="2-完全背包"><a href="#2-完全背包" class="headerlink" title="2. 完全背包"></a>2. 完全背包</h2><blockquote>
+<p>有 N 种物品和一个容量为 V 的背包。放入第 i 种物品的体积是 C<sub>i</sub> 得到的价值是 W<sub>i</sub> ，<strong>每种物品都有无限件</strong>，求解将哪些物品装入背包可使价值总和最大。</p>
+</blockquote>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1616" target="_blank" rel="noopener">P1616 疯狂的采药</a></li>
+</ul>
+<p>同样以模版的变量名为例</p>
+<h4 id="解1-贪心（非正解）"><a href="#解1-贪心（非正解）" class="headerlink" title="解1* 贪心（非正解）"></a>解1* 贪心（非正解）</h4><p>可以用类似于 部分背包 的贪心思想处理。<br>每次考虑选择单位价值最优的物品尽量装满背包，如果装不下了就考虑下一个物品（单位价值次优）直到遍历完了所有物品。<br>具体过程也与部分背包也类似，用结构体或 pair 实现。<br>但是，值得注意的是，此方法并不是正解，在某些极端数据面前，由于精度原因，在计算单位价值时可能不准导致结果错误，但是如果不会完全背包的正确解法的话，这个算法骗分来的也很快（洛谷“疯狂的采药”仅WA一个点），编写难度也低。</p>
+<h4 id="解2-将完全背包转化为01背包"><a href="#解2-将完全背包转化为01背包" class="headerlink" title="解2 将完全背包转化为01背包"></a>解2 将完全背包转化为01背包</h4><p>将每种物品 i 拆分为（V/Ci）件单独的物品，其价值，体积均与物品i相同，在对新的物品堆用01背包的方法计算。  </p>
+<p>状态转移方程：<br><code>f[i][v]=max{ f[i−1][v−k*Ci] + kWi |0&lt;= k*Ci &lt;=v}</code><br>(01背包也可写成类似形式，更容易看出二者的相似之处)<br><code>f[i][v]=max{ f[i−1][v−k*Ci] + kWi |0&lt;= k &lt;=1}</code></p>
+<p>时间复杂度：O(NVΣ(V/Ci))  </p>
+<h4 id="解2-5-俩个优化"><a href="#解2-5-俩个优化" class="headerlink" title="解2.5 俩个优化"></a>解2.5 俩个优化</h4><ol>
+<li>所有体积大于 V 的物品直接舍弃。再计算体积相同的物品谁的价值相同</li>
+<li>若两件物品 i、j 满足 Ci ≤ Cj 且 Wi ≥ Wj，则将可以将物品 j 舍弃。</li>
+</ol>
+<h4 id="解3-二进制法优化"><a href="#解3-二进制法优化" class="headerlink" title="解3 二进制法优化"></a>解3 二进制法优化</h4><p>这是对解2的进一步优化<br>首先假设物品 i 在解2中被拆为了 M<sub>i</sub> 件物品。而这种拆解其实是非常低效的，可以利用二进制的思想来进一步优化。  </p>
+<blockquote>
+<p>以下内容抄自《背包九章》<br>方法是:将第 i 种物品分成若干件 01 背包中的物品，其中每件物品有一个系数。这件物品的费用和价值均是原来的费用和价值乘以这个系数。令这些系数分别为1，2，2<sup>2</sup>，…，2<sup>k-1</sup>和 M<sub>i</sub> - 2<sup>k</sup> + 1，且 k 是满足 M<sub>i</sub> − 2<sup>k</sup> +1 &gt; 0 的最大整数。</p>
+</blockquote>
+<p>如 M<sub>i</sub> = 13，则k = 3，被拆为系数分别为1，2，4，6的四件物品。<br>如 M<sub>i</sub> = 39，则k = 5，被拆为系数分别为1，2，4，8，16，8的六件物品。<br>此时对于物品 i 来说，不管最优情况时取几件物品 i ，总能用二进制拆分后的物品得到。<br>再对拆分后的物品使用01背包方法。</p>
+<h4 id="解4-一维数组"><a href="#解4-一维数组" class="headerlink" title="解4 一维数组"></a>解4 一维数组</h4><p>这个解法和01背包的解法3类似，如果能很好的理解01背包的话，相信这部分应该很好懂，否则就再回去看看01背包吧。争取靠着对01背包的理解看懂下面与01背包的差别（一个是正序遍历，一个是倒序遍历）！  </p>
+<p>状态转移方程：<br><code>f[v] = max(f[v], f[v-Ci] + Wi)</code>  </p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">关键代码</span><br><span class="line"><span class="keyword">for</span>(int <span class="built_in">i</span>=<span class="number">0</span>;<span class="built_in">i</span>&lt;N;<span class="built_in">i</span>++)  </span><br><span class="line">    <span class="keyword">for</span>(int v=C[<span class="built_in">i</span>];v&lt;=V;v++)  </span><br><span class="line">        f[<span class="built_in">i</span>][v] = <span class="built_in">max</span>(f[v], f[v-C[<span class="built_in">i</span>]] + W[<span class="built_in">i</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(NV)<br>空间复杂度：O(V)</p>
+<h2 id="3-多重背包"><a href="#3-多重背包" class="headerlink" title="3. 多重背包"></a>3. 多重背包</h2><blockquote>
+<p>有 N 种物品和一个容量为 V 的背包。第 i 种物品的体积是 C<sub>i</sub> 得到的价值是 W<sub>i</sub> 数量是 M<sub>i</sub> ，每种物品都有无限件，求解将哪些物品装入背包可使价值总和最大。  </p>
+</blockquote>
+<ul>
+<li><a href="">没写过</a></li>
+</ul>
+<h4 id="解1-将多重背包转化为01背包"><a href="#解1-将多重背包转化为01背包" class="headerlink" title="解1 将多重背包转化为01背包"></a>解1 将多重背包转化为01背包</h4><p>和完全背包中转为01背包（解2）非常相似（不可用解2.5优化）</p>
+<p>略</p>
+<h4 id="解2-二进制法"><a href="#解2-二进制法" class="headerlink" title="解2 二进制法"></a>解2 二进制法</h4><p>和完全背包中转为01背包（解3）非常相似</p>
+<p>略，具体伪码可见《背包九章》。</p>
+<h2 id="对基础背包问题的总结"><a href="#对基础背包问题的总结" class="headerlink" title="对基础背包问题的总结"></a>对基础背包问题的总结</h2><p>通过对上面的背包问题可以看出，01背包十分重要，由于自身能力限制，我并不能很好的讲透背包问题背后的逻辑。但是大家可以通过各种方法看别人的解法来加深理解，对我个人而言，理解01背包最好的方法就是画表格，因为动态规划的本质就是“表格法”、“空间换时间”，在一步步调试中看自己表格中的数据和程序调试中的数据是否相同，在一步步调试中也会慢慢懂得这样做的意义。<br>我个人认为比较神奇的地方就是，原本十分麻烦的完全背包问题在一维数组方法中和01背包的区别竟然只是一个遍历的方向，自己理解与实验后又发现的确如此，妙啊妙啊。<br>基础三背包以01背包为基础，而背包问题则以基础三背包为基础 ：）下面就开始其他类型的背包问题了。</p>
+<h2 id="4-混合三种背包问题"><a href="#4-混合三种背包问题" class="headerlink" title="4.混合三种背包问题"></a>4.混合三种背包问题</h2><blockquote>
+<p>如果将前面1、2、3中的三种背包问题混合起来。也就是说，有的物品只可以取一次(01 背包)，有的物品可以取无限次(完全背包)，有的物品可以取的次数有一个上限(多重背包)。应该怎么求解呢?</p>
+</blockquote>
+<p>将前三种背包抽象为三个对应的处理函数，而后针对每个物品所属的背包种类调用相应的背包方法。</p>
+<h2 id="5-二维费用的背包问题"><a href="#5-二维费用的背包问题" class="headerlink" title="5.二维费用的背包问题"></a>5.二维费用的背包问题</h2><blockquote>
+<p>有 N 件物品和一个容量为 V，载重量为 U 的背包。第 i 件物品的体积是 C<sub>i</sub> 重量是 E<sub>i</sub> 得到的价值是 W<sub>i</sub> ，每件物品至多选择一次，求解将哪些物品装入背包可使价值总和最大。</p>
+</blockquote>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1910" target="_blank" rel="noopener">P1910 L国的战斗之间谍</a></li>
+</ul>
+<h4 id="解1-对应背包增加一维"><a href="#解1-对应背包增加一维" class="headerlink" title="解1 对应背包增加一维"></a>解1 对应背包增加一维</h4><p>01背包的每个解法经拓展一个维度后都可用来解二维费用的01背包问题<br>完全、多重背包类似。<br>这里仅以01背包的一维数组扩展为例  </p>
+<p>状态转移方程：<br><code>f[v][u] = max(f[v][u], f[v-Ci][u-Ei] + Wi)</code> </p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">关键代码</span><br><span class="line">for(int i=0;i&lt;N;i++)</span><br><span class="line">    for(int v=V;v&gt;=C<span class="comment">[i]</span>;v--)</span><br><span class="line">        for(int u=U;u&gt;=E<span class="comment">[i]</span>;u--)</span><br><span class="line">            f<span class="comment">[v]</span><span class="comment">[u]</span> = max(f<span class="comment">[v]</span><span class="comment">[u]</span>, f<span class="comment">[v-C<span class="comment">[i]</span>]</span><span class="comment">[u-E<span class="comment">[i]</span>]</span> + W<span class="comment">[i]</span>);</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(NVU)<br>空间复杂度：O(VU)</p>
+<h4 id="解2-复整数域上处理"><a href="#解2-复整数域上处理" class="headerlink" title="解2 复整数域上处理"></a>解2 复整数域上处理</h4><blockquote>
+<p>以下内容抄自《背包九章》<br>另一种看待二维背包问题的思路是:将它看待成复整数域上的背包问题。也就是说，背包的容量以及每件物品的费用都是一个复整数。而常见的一维背包问题则是自然 数域上的背包问题。所以说，一维背包的种种思想方法，往往可以应用于二位背包问题 的求解中，因为只是数域扩大了而已。</p>
+</blockquote>
+<p>不懂。</p>
+<h2 id="6-泛化物品"><a href="#6-泛化物品" class="headerlink" title="6.泛化物品"></a>6.泛化物品</h2><pre><code>定义：  
+考虑这样一种物品，它并没有固定的费用和价值，而是它的价值随着你分配给它的 费用而变化。这就是泛化物品的概念。  
+更严格的定义之。在背包容量为 V 的背包问题中，泛化物品是一个定义域为0...V 中的整数的函数 h，当分配给它的费用为 v 时，能得到的价值就是 h(v)。  
+这个定义有一点点抽象，另一种理解是一个泛化物品就是一个数组 h[0 . . . V ]，给它费用 v，可得到价值 h[v]。  
+一个费用为 c 价值为 w 的物品，如果它是 01 背包中的物品，那么把它看成泛化物品，它就是除了 h(c) = w 外，其它函数值都为 0 的一个函数。如果它是完全背包中的物品，那么它可以看成这样一个函数，仅当 v 被 c 整除时有 h(v) = w · v ，其它函数值 c
+均为 0。如果它是多重背包中重复次数最多为 m 的物品，那么它对应的泛化物品的函 数有h(v)=w·v 仅当v被c整除且 v ≤n，其它情况函数值均为0。  </code></pre><blockquote>
+<p>如果给定了两个泛化物品 h 和 l，要用一定的费用 V 从这两个泛化物品中得到最大的 价值，这个问题怎么求呢?</p>
+</blockquote>
+<p>因为不同情况下的 h，l 价格均可能变化，所以直接将 h 的价格从 0 到 V 遍历即可。</p>
+<p>状态表示：f[k]表示将费用 k 分配给了 h 物品。</p>
+<p>状态转移方程：<br><code>f[V] = max(h[k]+l[V-k] | 0&lt;=k&lt;=V)</code></p>
+<p>而如果存在三个泛化物品，则需先处理前两个泛化物品：计算费用从 0～V 取到的最大值并存进一个数组 F 中，处理完后 F 便可看作是由前两个泛化物品形成的新泛化物品，在处理 F 和第三个物品即可。  </p>
+<p>多个泛化物品同理。</p>
+<h2 id="7-分组的背包问题"><a href="#7-分组的背包问题" class="headerlink" title="7.分组的背包问题"></a>7.分组的背包问题</h2><blockquote>
+<p>有 N 件物品和一个容量为 V 的背包。第 i 件物品的费用是 Ci，价值是 Wi。这些 物品被划分为 K 组，每组内有 Ji 件物品，每组中的物品互相冲突，最多选一件。求解将哪些物品装入背包 可使这些物品的费用总和不超过背包容量，且价值总和最大。</p>
+</blockquote>
+<p>01背包是每个物品只能选0或1次，而分组背包则是每个组只能选0或1次，而每个选定组内的物品也只能选0或1次。</p>
+<h4 id="解1-01背包思想"><a href="#解1-01背包思想" class="headerlink" title="解1 01背包思想"></a>解1 01背包思想</h4><p>状态转移方程：<br><code>f[v] = max(f[v], f[v-Ci] + Wi)</code>  </p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">关键代码：</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> k=<span class="number">0</span>;k&lt;K;k++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> v=V;v&gt;=<span class="number">0</span>;v--)</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;Ji；i++)</span><br><span class="line">            f[v] = max(f[v], f[v-Ci] + Wi);</span><br></pre></td></tr></table></figure>
+
+<p>注意：虽然状态转移方程和01背包相同，但实现不同，v 循环和 i 循环定义的位置有变化，这也正是解决分组背包的关键。</p>
+<h4 id="解1-5-优化"><a href="#解1-5-优化" class="headerlink" title="解1.5 优化"></a>解1.5 优化</h4><p>可用完全背包的解2.5优化，方法相同。</p>
+<h4 id="解2-泛化物品"><a href="#解2-泛化物品" class="headerlink" title="解2 泛化物品"></a>解2 泛化物品</h4><p>一个物品组可以看作一个泛化物品h。对于一个0…V 中的v，若物品组中不存在 费用为 v 的物品，则 h(v) = 0，否则 h(v) 取值为所有费用为 v 的物品的最大价值。<br>然后按照处理泛化物品的方法处理。</p>
+<h2 id="8-有依赖的背包问题"><a href="#8-有依赖的背包问题" class="headerlink" title="8.有依赖的背包问题"></a>8.有依赖的背包问题</h2><blockquote>
+<p>这种背包问题的物品间存在某种“依赖”的关系。也就是说，物品 i 依赖于物品 j， 表示若选物品 i，则必须选物品 j。为了简化起见，我们先设没有某个物品既依赖于别 的物品，又被别的物品所依赖;另外，没有某件物品同时依赖多件物品。</p>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P1064" target="_blank" rel="noopener">P1064 金明的预算方案</a>  </li>
+</ul>
+</blockquote>
+<p>依赖背包问题由此题演变出来，以此题为例。</p>
+<h4 id="解1-转为分组背包问题"><a href="#解1-转为分组背包问题" class="headerlink" title="解1 转为分组背包问题"></a>解1 转为分组背包问题</h4><p>由于每个主件可以有0个、1个或2个附件，且要选择附件则必须选择主件，因此等价与一个含有四个物品的物品组：只选主件，选择主件与附件a，选择主件与附件b，选择主件与附件a和b，一个物品组最多选择一件物品。<br>将每个主件抽象为一个物品组，再用分组背包问题求解的方法即可。</p>
+<h4 id="解2-转为泛化背包"><a href="#解2-转为泛化背包" class="headerlink" title="解2 转为泛化背包"></a>解2 转为泛化背包</h4><p>若本题未规定附件的最大个数，则当一个物品可以具有多个附件时，物品组的数量指数级增加，情况多且复杂，因此不能简单的转化为分组背包问题。</p>
+<p>首先对同一主件的所有附件进行01背包计算，计算出在购买主件的情况下，各费用值能取到的最大价值，再将此费用加到主件上，主件视为一个泛化物品。<br>将每个主件抽象为一个泛化物品，再用泛化物品背包问题求解的方法即可。</p>
+<h2 id="8-5-更一般化的依赖背包问题"><a href="#8-5-更一般化的依赖背包问题" class="headerlink" title="8.5 更一般化的依赖背包问题"></a>8.5 更一般化的依赖背包问题</h2><blockquote>
+<p>更一般的问题是:依赖关系以图论中“森林”的形式给出。也就是说，主件的附件仍然可以具有自己的附件集合。限制只是每个物品最多只依赖于一个物品(只有一个主件)且不出现循环依赖。</p>
+</blockquote>
+<p>没见过，没写过 </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%92%8C%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="prev" title="树状数组和线段树">
+      <i class="fa fa-chevron-left"></i> 树状数组和线段树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/" rel="next" title="快速排序与循环不变量">
+      快速排序与循环不变量 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背包问题"><span class="nav-number">1.</span> <span class="nav-text">背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是背包问题"><span class="nav-number">1.1.</span> <span class="nav-text">什么是背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背包问题的分类"><span class="nav-number">1.1.1.</span> <span class="nav-text">背包问题的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-部分背包"><span class="nav-number">1.2.</span> <span class="nav-text">0. 部分背包*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-01背包"><span class="nav-number">1.3.</span> <span class="nav-text">1. 01背包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-（暴力搜索）"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">解1*（暴力搜索）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-（二维动态规划）"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">解2 （二维动态规划）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-5-一个可行的空间优化方法"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">解2.5* 一个可行的空间优化方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解3-（一维动态规划，滚动数组）"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">解3 （一维动态规划，滚动数组）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-完全背包"><span class="nav-number">1.4.</span> <span class="nav-text">2. 完全背包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-贪心（非正解）"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">解1* 贪心（非正解）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-将完全背包转化为01背包"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">解2 将完全背包转化为01背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-5-俩个优化"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">解2.5 俩个优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解3-二进制法优化"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">解3 二进制法优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解4-一维数组"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">解4 一维数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-多重背包"><span class="nav-number">1.5.</span> <span class="nav-text">3. 多重背包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-将多重背包转化为01背包"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">解1 将多重背包转化为01背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-二进制法"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">解2 二进制法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对基础背包问题的总结"><span class="nav-number">1.6.</span> <span class="nav-text">对基础背包问题的总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-混合三种背包问题"><span class="nav-number">1.7.</span> <span class="nav-text">4.混合三种背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-二维费用的背包问题"><span class="nav-number">1.8.</span> <span class="nav-text">5.二维费用的背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-对应背包增加一维"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">解1 对应背包增加一维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-复整数域上处理"><span class="nav-number">1.8.0.2.</span> <span class="nav-text">解2 复整数域上处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-泛化物品"><span class="nav-number">1.9.</span> <span class="nav-text">6.泛化物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-分组的背包问题"><span class="nav-number">1.10.</span> <span class="nav-text">7.分组的背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-01背包思想"><span class="nav-number">1.10.0.1.</span> <span class="nav-text">解1 01背包思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-5-优化"><span class="nav-number">1.10.0.2.</span> <span class="nav-text">解1.5 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-泛化物品"><span class="nav-number">1.10.0.3.</span> <span class="nav-text">解2 泛化物品</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-有依赖的背包问题"><span class="nav-number">1.11.</span> <span class="nav-text">8.有依赖的背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解1-转为分组背包问题"><span class="nav-number">1.11.0.1.</span> <span class="nav-text">解1 转为分组背包问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解2-转为泛化背包"><span class="nav-number">1.11.0.2.</span> <span class="nav-text">解2 转为泛化背包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-5-更一般化的依赖背包问题"><span class="nav-number">1.12.</span> <span class="nav-text">8.5 更一般化的依赖背包问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhang"
+      src="/blog/images/header.jpeg">
+  <p class="site-author-name" itemprop="name">zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

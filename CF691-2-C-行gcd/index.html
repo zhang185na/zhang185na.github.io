@@ -20,15 +20,22 @@
     var CONFIG = {"hostname":"github.com","root":"/zhang185na.github.io/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zhang185&#39;s blog">
-<meta property="og:url" content="https://github.com/zhang185na/zhang185na.github.io/archives/2021/index.html">
+  <meta name="description" content="Correct Placement思路 代码123456789101112131415161718192021222324252627#include &lt;bits&#x2F;stdc++.h&gt;using namespace std;typedef long long ll;int const N &#x3D; 2e5 + 10;ll a[N], b[N];ll gcd(ll x, ll y) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF691(2)C 行gcd">
+<meta property="og:url" content="https://github.com/zhang185na/zhang185na.github.io/CF691-2-C-%E8%A1%8Cgcd/index.html">
 <meta property="og:site_name" content="Zhang185&#39;s blog">
+<meta property="og:description" content="Correct Placement思路 代码123456789101112131415161718192021222324252627#include &lt;bits&#x2F;stdc++.h&gt;using namespace std;typedef long long ll;int const N &#x3D; 2e5 + 10;ll a[N], b[N];ll gcd(ll x, ll y) &amp;#123;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gmnad16t9rj319b0stdt7.jpg">
+<meta property="article:published_time" content="2021-01-14T08:04:34.000Z">
+<meta property="article:modified_time" content="2021-01-14T08:07:37.433Z">
 <meta property="article:author" content="zhang">
+<meta property="article:tag" content="codeforces">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEgy1gmnad16t9rj319b0stdt7.jpg">
 
-<link rel="canonical" href="https://github.com/zhang185na/zhang185na.github.io/archives/2021/">
+<link rel="canonical" href="https://github.com/zhang185na/zhang185na.github.io/CF691-2-C-%E8%A1%8Cgcd/">
 
 
 <script id="page-configurations">
@@ -36,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Zhang185's blog</title>
+  <title>CF691(2)C 行gcd | Zhang185's blog</title>
   
 
 
@@ -149,130 +156,85 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 20 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/zhang185na/zhang185na.github.io/CF691-2-C-%E8%A1%8Cgcd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/zhang185na.github.io/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF691(2)C 行gcd
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-14 16:04:34 / 修改时间：16:07:37" itemprop="dateCreated datePublished" datetime="2021-01-14T16:04:34+08:00">2021-01-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-14T17:43:19+08:00"
-              content="2021-01-14">
-          01-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/zhang185na.github.io/CF693-3-G-%E8%BF%81%E9%83%BD/" itemprop="url">
-            <span itemprop="name">CF693(3) G 迁都</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-14T16:04:34+08:00"
-              content="2021-01-14">
-          01-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/zhang185na.github.io/CF691-2-C-%E8%A1%8Cgcd/" itemprop="url">
-            <span itemprop="name">CF691(2)C 行gcd</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-14T16:03:04+08:00"
-              content="2021-01-14">
-          01-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/zhang185na.github.io/CF693-3-E-%E4%BA%8C%E7%BB%B4%E6%AF%94%E8%BE%83/" itemprop="url">
-            <span itemprop="name">CF693(3)E 二维比较</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T23:32:42+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/zhang185na.github.io/CFedu101-2-C-%E6%95%B4%E7%90%86%E4%B9%A6%E7%B1%8D/" itemprop="url">
-            <span itemprop="name">CFedu101(2)C 整理书籍</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-10T17:55:42+08:00"
-              content="2021-01-10">
-          01-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/zhang185na.github.io/CF690-3-F-%E5%8C%BA%E9%97%B4%E7%9B%B8%E4%BA%A4/" itemprop="url">
-            <span itemprop="name">CF690(3)F 区间相交</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h3 id="Correct-Placement"><a href="#Correct-Placement" class="headerlink" title="Correct Placement"></a><a href="https://codeforces.com/contest/1472/problem/E" target="_blank" rel="noopener">Correct Placement</a></h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gmnad16t9rj319b0stdt7.jpg" alt="IMG_0609"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line">ll a[N], b[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y == <span class="number">0</span> ? x : gcd(y, x % y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//    freopen("abc.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">cin</span> &gt;&gt; b[i];</span><br><span class="line"></span><br><span class="line">    ll G = n == <span class="number">1</span> ? <span class="number">0</span> : <span class="built_in">abs</span>(a[<span class="number">1</span>] - a[<span class="number">0</span>]); <span class="comment">// !</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">        G = gcd(G, <span class="built_in">abs</span>(a[i] - a[<span class="number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; gcd( a[<span class="number">0</span>] + b[i], G) &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/zhang185na.github.io/tags/codeforces/" rel="tag"># codeforces</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/zhang185na.github.io/CF693-3-E-%E4%BA%8C%E7%BB%B4%E6%AF%94%E8%BE%83/" rel="prev" title="CF693(3)E 二维比较">
+      <i class="fa fa-chevron-left"></i> CF693(3)E 二维比较
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/zhang185na.github.io/CF693-3-G-%E8%BF%81%E9%83%BD/" rel="next" title="CF693(3) G 迁都">
+      CF693(3) G 迁都 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -325,6 +287,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Correct-Placement"><span class="nav-number">1.</span> <span class="nav-text">Correct Placement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

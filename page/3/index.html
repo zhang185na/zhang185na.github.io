@@ -155,6 +155,262 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/CF691-2-C-%E8%A1%8Cgcd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/CF691-2-C-%E8%A1%8Cgcd/" class="post-title-link" itemprop="url">CF691(2)C 行gcd</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-14 16:04:34 / 修改时间：16:07:37" itemprop="dateCreated datePublished" datetime="2021-01-14T16:04:34+08:00">2021-01-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Correct-Placement"><a href="#Correct-Placement" class="headerlink" title="Correct Placement"></a><a href="https://codeforces.com/contest/1472/problem/E" target="_blank" rel="noopener">Correct Placement</a></h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gmnad16t9rj319b0stdt7.jpg" alt="IMG_0609"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line">ll a[N], b[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y == <span class="number">0</span> ? x : gcd(y, x % y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//    freopen("abc.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">cin</span> &gt;&gt; b[i];</span><br><span class="line"></span><br><span class="line">    ll G = n == <span class="number">1</span> ? <span class="number">0</span> : <span class="built_in">abs</span>(a[<span class="number">1</span>] - a[<span class="number">0</span>]); <span class="comment">// !</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; i++) &#123;</span><br><span class="line">        G = gcd(G, <span class="built_in">abs</span>(a[i] - a[<span class="number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; gcd( a[<span class="number">0</span>] + b[i], G) &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/CF693-3-E-%E4%BA%8C%E7%BB%B4%E6%AF%94%E8%BE%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/CF693-3-E-%E4%BA%8C%E7%BB%B4%E6%AF%94%E8%BE%83/" class="post-title-link" itemprop="url">CF693(3)E 二维比较</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-14 16:03:04 / 修改时间：16:24:49" itemprop="dateCreated datePublished" datetime="2021-01-14T16:03:04+08:00">2021-01-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Correct-Placement"><a href="#Correct-Placement" class="headerlink" title="Correct Placement"></a><a href="https://codeforces.com/contest/1472/problem/E" target="_blank" rel="noopener">Correct Placement</a></h3><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这题感觉真的比较妙，用了贪心和二分，看题解的时候才反应过来好像之前见过一个类似的题TAT，所以还是一定要养成补题的习惯，真的很重要。</p>
+<p>将本题的人抽象为一个矩形。对于每一个矩形寻找是否存在一个长宽都小于自己的矩形。</p>
+<p>首先对每个矩形的高升序排序，然后对于每一个矩形i，<strong>二分寻找矩形的严格小于h[i]的最小索引</strong>，记为j，则对于j及j前面的矩形都能满足高小于h[i]，此时我们还需要在这些矩形中找到一个宽严格小于w[i]的矩形，可以利用<strong>贪心</strong>算法，记录每一个矩形前最小的宽所在位置，只要判断 j前最小宽是否小于w[i]即可。</p>
+<blockquote>
+<p>Let’s sort all people by their height in descending order.</p>
+<p>Now let’s go through all the people and look for the position of the person in the sorted array, the height of which is strictly less than ours (for example, by binary search). Obviously, only those people who are in the sorted array later than the found person can stand in front of us (all of them have a height strictly less than ours).</p>
+<p>Among all these people, it is more profitable for us to take a person with minimum width. In order to find such a person quickly, we can find a person with the minimum width for each suffix of the sorted array.</p>
+<p>To handle a situation where a person is lying down, we need to swap the width and height and repeat the algorithm above.</p>
+</blockquote>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">person</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> w, h, pre, i; <span class="comment">// 宽 高 这个位置前最小宽矩形的索引 这个矩形的索引</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2e5</span> + <span class="number">100</span>;</span><br><span class="line">person a[N];</span><br><span class="line"><span class="keyword">int</span> ans[N];</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(person p1, person p2)</span> </span>&#123; <span class="comment">// 矮子站前面</span></span><br><span class="line">    <span class="keyword">return</span> p1.h &lt; p2.h;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch</span><span class="params">(<span class="keyword">int</span> h)</span> </span>&#123;  <span class="comment">//搜索a数组 中身高严格小于h的 最右边的位置</span></span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">1</span>, r = n;</span><br><span class="line">    <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[l].h &lt; h) <span class="keyword">return</span> l;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> mid = (l + r + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (a[mid].h &gt;= h) r = mid - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> l = mid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">    <span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span>(a));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i].w &gt;&gt; a[i].h;</span><br><span class="line">        a[i].i = i;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    sort(a + <span class="number">1</span>, a + <span class="number">1</span> + n, cmp);</span><br><span class="line">    a[<span class="number">1</span>].pre = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i].w &lt; a[a[i - <span class="number">1</span>].pre].w) &#123;</span><br><span class="line">            a[i].pre = i;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a[i].pre = a[i - <span class="number">1</span>].pre;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> ipre = a[bsearch(a[i].h)].pre;</span><br><span class="line">        <span class="keyword">if</span> (ipre &amp;&amp; a[ipre].w &lt; a[i].w) ans[a[i].i] = a[ipre].i;</span><br><span class="line">        ipre = a[bsearch(a[i].w)].pre;</span><br><span class="line">        <span class="keyword">if</span> (ipre &amp;&amp; a[ipre].w &lt; a[i].h) ans[a[i].i] = a[ipre].i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (ans[i] == <span class="number">0</span> ? <span class="number">-1</span> : ans[i]) &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//    freopen("abc.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        solve();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/CFedu101-2-C-%E6%95%B4%E7%90%86%E4%B9%A6%E7%B1%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/CFedu101-2-C-%E6%95%B4%E7%90%86%E4%B9%A6%E7%B1%8D/" class="post-title-link" itemprop="url">CFedu101(2)C 整理书籍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-12 23:32:42 / 修改时间：23:47:47" itemprop="dateCreated datePublished" datetime="2021-01-12T23:32:42+08:00">2021-01-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目链接：<a href="https://codeforces.com/contest/1469/problem/C" target="_blank" rel="noopener">Building a Fence</a></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gmlc47ubjaj31n30qkdor.jpg" alt="IMG_0608"></p>
+<p>如图，规定h[i]为书籍的初始高度，而[ l[i], r[i] ]区间为 初始高度+增加高度 的所有有效取值区间。</p>
+<p>显然 l[1] = r[1] = h[1]；而对于第二项，为使两者有相交部分，则其有效取值区间的确定如上图所示，之后从左到右遍历每一项i，采用类似的方式确认其有效取值区间，此时可以保证前者不论取其区间内何值，在自身内总能找到一个对应的值使得二者相交；当区间不存在时，则无解。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> h[N], l[N], r[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; h[i];</span><br><span class="line">    l[<span class="number">0</span>] = r[<span class="number">0</span>] = h[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        l[i] = <span class="built_in">max</span>(l[i - <span class="number">1</span>] + <span class="number">1</span> - k, h[i]);</span><br><span class="line">        r[i] = <span class="built_in">min</span>(r[i - <span class="number">1</span>] + k - <span class="number">1</span>, h[i] + k - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (l[i] &gt; r[i]) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!(h[n - <span class="number">1</span>] &gt;= l[n - <span class="number">1</span>] &amp;&amp; h[n - <span class="number">1</span>] &lt;= r[n - <span class="number">1</span>])) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"YES"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//    freopen("abc.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        solve();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/CF690-3-F-%E5%8C%BA%E9%97%B4%E7%9B%B8%E4%BA%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/CF690-3-F-%E5%8C%BA%E9%97%B4%E7%9B%B8%E4%BA%A4/" class="post-title-link" itemprop="url">CF690(3)F 区间相交</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-10 17:55:42 / 修改时间：18:03:33" itemprop="dateCreated datePublished" datetime="2021-01-10T17:55:42+08:00">2021-01-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定数个区间 删去至少多少个区间可以使得 剩余区间中至少有一个区间和其他所有区间都有交点</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gmir8gm9bzj31ps0g7tby.jpg" alt="IMG_0606"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pp;</span><br><span class="line"><span class="keyword">int</span> l[N], r[N];</span><br><span class="line">pp s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; l[i] &gt;&gt; r[i];</span><br><span class="line">        s[i] = &#123;l[i], r[i]&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(l, l + n);</span><br><span class="line">    sort(r, r + n);</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> L = s[i].first, R = s[i].second;</span><br><span class="line">        <span class="keyword">int</span> cnt = n - (upper_bound(l, l + n, R) - l);</span><br><span class="line">        cnt += lower_bound(r, r + n, L) - r;</span><br><span class="line">        ans = <span class="built_in">min</span>(ans, cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//    freopen("abc.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        solve();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/Promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -685,313 +941,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/2020%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A15/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/header.jpeg">
-      <meta itemprop="name" content="zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhang185's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2020%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A15/" class="post-title-link" itemprop="url">2020杭电多校5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-07 13:51:08" itemprop="dateCreated datePublished" datetime="2020-08-07T13:51:08+08:00">2020-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 03:22:43" itemprop="dateModified" datetime="2020-08-08T03:22:43+08:00">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E6%AF%94%E8%B5%9B%E8%A1%A5%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">比赛补题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="比赛代码"><a href="#比赛代码" class="headerlink" title="比赛代码"></a>比赛代码</h3><p>爆零 ：）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2020%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A15/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/header.jpeg">
-      <meta itemprop="name" content="zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhang185's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/git/" class="post-title-link" itemprop="url">git</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-03 16:59:01" itemprop="dateCreated datePublished" datetime="2020-08-03T16:59:01+08:00">2020-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-23 17:01:19" itemprop="dateModified" datetime="2020-08-23T17:01:19+08:00">2020-08-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h2><ul>
-<li>工作目录（working directory)</li>
-<li>暂存区（stage / index）</li>
-<li>资源库（repository / git directory)</li>
-<li>远程仓库（remote directory)</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/git/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/header.jpeg">
-      <meta itemprop="name" content="zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhang185's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">快速排序与循环不变量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-03 01:46:55" itemprop="dateCreated datePublished" datetime="2020-08-03T01:46:55+08:00">2020-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-10 19:34:31" itemprop="dateModified" datetime="2021-05-10T19:34:31+08:00">2021-05-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="快速排序与循环不变量"><a href="#快速排序与循环不变量" class="headerlink" title="快速排序与循环不变量"></a>快速排序与循环不变量</h1><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><ul>
-<li>快速排序是一种使用了分治思想的排序算法</li>
-<li>时间复杂度为$O(nlog(n))$；在极端数据面前，时间复杂度为O(n<sup>2</sup>)</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/header.jpeg">
-      <meta itemprop="name" content="zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhang185's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">背包问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-03 01:45:04" itemprop="dateCreated datePublished" datetime="2020-08-03T01:45:04+08:00">2020-08-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-16 12:52:00" itemprop="dateModified" datetime="2021-03-16T12:52:00+08:00">2021-03-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h1><blockquote>
-<p>内容大部分总结自崔添翼的《背包问题九讲》。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1063,7 +1012,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1076,7 +1025,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

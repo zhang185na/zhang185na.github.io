@@ -28,7 +28,7 @@
 <meta property="og:description" content="动态规划动态规划常常适用于有&#x3D;&#x3D;重叠子问题&#x3D;&#x3D;和&#x3D;&#x3D;最优子结构&#x3D;&#x3D;性质的问题，并且记录所有子问题的结果，因此动态规划方法所耗时间往往远少于朴素解法。 动态规划有自底向上和自顶向下两种解决问题的方式。自顶向下即&#x3D;&#x3D;记忆化递归&#x3D;&#x3D;，自底向上就是&#x3D;&#x3D;递推&#x3D;&#x3D;。 使用动态规划解决的问题有个明显的特点，一旦一个子问题的求解得到结果，以后的计算过程就不会修改它，这样的特点叫做&#x3D;&#x3D;无后效性&#x3D;&#x3D; 思想：&#x3D;&#x3D;空间换">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-18T04:31:45.949Z">
-<meta property="article:modified_time" content="2021-05-18T13:37:18.115Z">
+<meta property="article:modified_time" content="2021-05-19T13:28:47.456Z">
 <meta property="article:author" content="zhang">
 <meta name="twitter:card" content="summary">
 
@@ -182,10 +182,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-05-18 12:31:45 / 修改时间：21:37:18" itemprop="dateCreated datePublished" datetime="2021-05-18T12:31:45+08:00">2021-05-18</time>
+              <time title="创建时间：2021-05-18 12:31:45" itemprop="dateCreated datePublished" datetime="2021-05-18T12:31:45+08:00">2021-05-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-19 21:28:47" itemprop="dateModified" datetime="2021-05-19T21:28:47+08:00">2021-05-19</time>
+              </span>
 
           
 
@@ -221,7 +227,7 @@
 </li>
 <li><p>dp</p>
 <ol>
-<li><p>定义状态：dp[i] -&gt; 以a[i]为结尾的最大子序和</p>
+<li><p>定义状态：<code>dp[i] -&gt; 以a[i]为结尾的最大连续子序和</code></p>
 </li>
 <li><p>状态转移：<code>dp[i] = max(dp[i-1] + a[i], a[i]);</code></p>
 <p>​        <code>dp[i] = a[i] + max(dp[i-1], 0);</code></p>
@@ -236,11 +242,11 @@
 </li>
 <li><p>dp(前缀和)</p>
 <ol start="0">
-<li><p>sum[i] = sum{a[0..n]}</p>
+<li><p><code>sum[i] = sum{a[0..n]}</code></p>
 </li>
-<li><p>定义状态：dp[i] = min{sum[0..i]}</p>
+<li><p>定义状态：<code>dp[i] = min{sum[0..i]}</code></p>
 </li>
-<li><p>状态转移：dp[i] = min(dp[i-1], sum[i]);</p>
+<li><p>状态转移：<code>dp[i] = min(dp[i-1], sum[i]);</code></p>
 </li>
 <li><p>初始化：<code>dp[0] = a[i];</code></p>
 </li>
@@ -249,7 +255,7 @@
 </ol>
 </li>
 </ol>
-<h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h3><ol>
+<h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a><a href="https://www.luogu.com.cn/problem/P1048" target="_blank" rel="noopener">01背包</a></h3><ol>
 <li><p>定义状态：<code>dp[i][v]的定义如下：对于前i个物品，当前背包的容量为v，这种情况下可以装的最大价值是dp[i][v]</code></p>
 </li>
 <li><p>状态转移：<code>dp[i][v] = max(dp[i-1][v], dp[i-1][v-w[i]] + a[i])</code> </p>
@@ -261,9 +267,9 @@
 </li>
 </ol>
 <p>《背包九章》</p>
-<p>(今年蓝桥杯的一道题「」)</p>
-<h3 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h3><ol>
-<li><p>定义状态：<code>dp[i] -&gt; 包含第i个数字所得到的最长上升子序列长度</code></p>
+<p>(今年蓝桥杯的一道题「<a href="https://www.acwing.com/problem/content/3420/" target="_blank" rel="noopener">砝码称重</a>」)</p>
+<h3 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a><a href="https://www.acwing.com/problem/content/description/897/" target="_blank" rel="noopener">最长上升子序列</a></h3><ol>
+<li><p>定义状态：<code>dp[i] -&gt; 以第i个数字为结尾所得到的最长上升子序列长度</code></p>
 </li>
 <li><p>状态转移：<code>dp[i] = max{dp[j] + 1 (a[j] &lt; a[i])}</code> </p>
 </li>
@@ -274,9 +280,9 @@
 <li><p>还能再<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-er-fen-cha-zhao-tan-xin-suan-fa-p/" target="_blank" rel="noopener">优化</a>吗：O(nlogn)</p>
 </li>
 </ol>
-<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h3><ol>
-<li>定义状态：<code>dp[i][j] -&gt; s1[0..i]与s2[0..j]</code>的最长公共子序列</li>
-<li>状态转移：<code>dp[i][j] = dp[i-1][j-1] + (s1[i] == s2[j])</code> 【注意迭代的顺序】</li>
+<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a><a href="https://www.acwing.com/problem/content/899/" target="_blank" rel="noopener">最长公共子序列</a></h3><ol>
+<li>定义状态：<code>dp[i][j] -&gt; s1[1..i]与s2[1..j]</code>的最长公共子序列</li>
+<li>状态转移：<code>dp[i][j] = max(dp[i-1][j-1] + (s1[i] == s2[j]), dp[i-1][j], dp[i][j-1])</code> </li>
 <li>初始化：</li>
 <li>输出值：<code>dp[len1][len2]</code></li>
 </ol>
@@ -376,7 +382,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -389,7 +395,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

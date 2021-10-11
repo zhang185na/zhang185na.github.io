@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhang185a.gitee.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="xay loves trees题目给两棵都以1为根结点、长度相同的树，求一个序列使得：这个序列的所有值在树1中两两为祖先儿子关系，在树2中两两不是祖先儿子关系。 思路DFS序 树状数组&#x2F;线段树 DFS序：每个节点在dfs深度优先遍历中的进出栈的时间序列。 其伪代码为： 12345678time &#x3D; 0;dfs(int x) &amp;#123;    in[x] &#x3D; ++time;    for (x结点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021牛客多校7">
+<meta property="og:url" content="http://zhang185a.gitee.io/blog/2021%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A17/index.html">
+<meta property="og:site_name" content="Zhang185&#39;s blog">
+<meta property="og:description" content="xay loves trees题目给两棵都以1为根结点、长度相同的树，求一个序列使得：这个序列的所有值在树1中两两为祖先儿子关系，在树2中两两不是祖先儿子关系。 思路DFS序 树状数组&#x2F;线段树 DFS序：每个节点在dfs深度优先遍历中的进出栈的时间序列。 其伪代码为： 12345678time &#x3D; 0;dfs(int x) &amp;#123;    in[x] &#x3D; ++time;    for (x结点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-10T11:02:10.769Z">
+<meta property="article:modified_time" content="2021-08-13T14:54:49.419Z">
+<meta property="article:author" content="zhang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zhang185a.gitee.io/blog/2021%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A17/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2021牛客多校7 | Zhang185's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhang185's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/2021%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2021牛客多校7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-10 19:02:10" itemprop="dateCreated datePublished" datetime="2021-08-10T19:02:10+08:00">2021-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-13 22:54:49" itemprop="dateModified" datetime="2021-08-13T22:54:49+08:00">2021-08-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="xay-loves-trees"><a href="#xay-loves-trees" class="headerlink" title="xay loves trees"></a><a href="https://ac.nowcoder.com/acm/contest/11258/F" target="_blank" rel="noopener">xay loves trees</a></h1><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给两棵都以1为根结点、长度相同的树，求一个序列使得：这个序列的所有值在树1中两两为祖先儿子关系，在树2中两两不是祖先儿子关系。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>DFS序 树状数组/线段树</strong></p>
+<p>DFS序：每个节点在dfs深度优先遍历中的进出栈的时间序列。</p>
+<p>其伪代码为：</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">time = <span class="number">0</span>;</span><br><span class="line">dfs(int <span class="symbol">x</span>) &#123;</span><br><span class="line">    in[<span class="symbol">x</span>] = ++time;</span><br><span class="line">    <span class="keyword">for</span> (<span class="symbol">x</span>结点的每个孩子结点<span class="symbol">y</span>) &#123;</span><br><span class="line">        dfs(<span class="symbol">y</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    out[<span class="symbol">x</span>] = ++time;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以从中得到一个很重要的性质：每个节点x的孩子结点的进出时间都一定在$[in[x], out[x]]$​，并且每个节点的进出时间都不相交。</p>
+<p>回到这道题，首先处理树1，我们可以遍历每一个节点，找到这个节点的最长链，如果当前这个最长链不满足树2的限制，就不断地最高的节点踢掉，直到满足。</p>
+<p>而对于树2的check，我们可以用一个线段树/树状数组来维护，每加入一个节点，我们就对$[in[x], out[x]]$​区间加1，这样如果出现了某个区间的值大于1，则说明当前选择的序列中存在祖先关系，则不满足条件。</p>
+<p>关键代码其实就是dfs函数。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> left, right;</span><br><span class="line">    ll data, lazy = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">node tree[<span class="number">4</span> * maxn];</span><br><span class="line"></span><br><span class="line"><span class="comment">// tree[0] -&gt; pos = 1, l = 1, r = n;</span></span><br><span class="line"><span class="comment">// 建线段树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> pos, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    tree[pos].data = tree[pos].lazy = <span class="number">0</span>;</span><br><span class="line">    tree[pos].left = l;</span><br><span class="line">    tree[pos].right = r;</span><br><span class="line">    <span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    build(<span class="number">2</span> * pos, l, mid);</span><br><span class="line">    build(<span class="number">2</span> * pos + <span class="number">1</span>, mid + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将lazy向下传</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spear</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    tree[<span class="number">2</span> * i].lazy += tree[i].lazy;</span><br><span class="line">    tree[<span class="number">2</span> * i].data += tree[i].lazy * (tree[<span class="number">2</span> * i].right - tree[<span class="number">2</span> * i].left + <span class="number">1</span>);</span><br><span class="line">    tree[<span class="number">2</span> * i + <span class="number">1</span>].lazy += tree[i].lazy;</span><br><span class="line">    tree[<span class="number">2</span> * i + <span class="number">1</span>].data += tree[i].lazy * (tree[<span class="number">2</span> * i + <span class="number">1</span>].right - tree[<span class="number">2</span> * i + <span class="number">1</span>].left + <span class="number">1</span>);</span><br><span class="line">    tree[i].lazy = <span class="number">0</span>;</span><br><span class="line">    tree[i].data = tree[<span class="number">2</span> * i].data + tree[<span class="number">2</span> * i + <span class="number">1</span>].data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给区间[l, r]加上x</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> l, <span class="keyword">int</span> r, ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree[i].left &gt; r || tree[i].right &lt; l) &#123; <span class="comment">// 在所查询区间外</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (tree[i].left &gt;= l &amp;&amp; tree[i].right &lt;= r) &#123; <span class="comment">// 包括在所查询区间内</span></span><br><span class="line">        tree[i].lazy += x;</span><br><span class="line">        tree[i].data += x * (tree[i].right - tree[i].left + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    spear(i);</span><br><span class="line">    update(<span class="number">2</span> * i, l, r, x);</span><br><span class="line">    update(<span class="number">2</span> * i + <span class="number">1</span>, l, r, x);</span><br><span class="line">    tree[i].data = tree[<span class="number">2</span> * i].data + tree[<span class="number">2</span> * i + <span class="number">1</span>].data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求区间[l, r]的和</span></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree[i].left &gt; r || tree[i].right &lt; l) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (tree[i].left &gt;= l &amp;&amp; tree[i].right &lt;= r) &#123; <span class="comment">// 包括在所查询区间内</span></span><br><span class="line">        <span class="keyword">return</span> tree[i].data;</span><br><span class="line">    &#125;</span><br><span class="line">    spear(i);</span><br><span class="line">    <span class="keyword">return</span> query(<span class="number">2</span> * i, l, r) + query(<span class="number">2</span> * i + <span class="number">1</span>, l, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a[maxn], b[maxn];</span><br><span class="line"><span class="keyword">int</span> in[maxn], out[maxn];</span><br><span class="line"><span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfn</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> fa)</span> </span>&#123; <span class="comment">// dfs-&gt;2</span></span><br><span class="line">    in[x] = ++t;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> y: b[x]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y == fa) <span class="keyword">continue</span>;</span><br><span class="line">        dfn(y, x);</span><br><span class="line">    &#125;</span><br><span class="line">    out[x] = ++t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; dq;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> fa)</span> </span>&#123; <span class="comment">// dfs -&gt; 1</span></span><br><span class="line">    <span class="comment">// 枚举这个点能往上走多远</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; sta;</span><br><span class="line">    <span class="keyword">while</span> (query(<span class="number">1</span>, in[x], out[x])) &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = dq.front();</span><br><span class="line">        update(<span class="number">1</span>, in[tmp], out[tmp], <span class="number">-1</span>);</span><br><span class="line">        sta.push(tmp), dq.pop_front();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dq.push_back(x);</span><br><span class="line">    update(<span class="number">1</span>, in[x], out[x], <span class="number">1</span>);</span><br><span class="line">    ans = max(ans, (<span class="keyword">int</span>) dq.size());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> y: a[x]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y == fa) <span class="keyword">continue</span>;</span><br><span class="line">        dfs(y, x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 还原</span></span><br><span class="line">    <span class="keyword">while</span> (!sta.empty()) &#123;</span><br><span class="line">        update(<span class="number">1</span>, in[sta.top()], out[sta.top()], <span class="number">1</span>);</span><br><span class="line">        dq.push_front(sta.top()), sta.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    dq.pop_back();</span><br><span class="line">    update(<span class="number">1</span>, in[x], out[x], <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line"></span><br><span class="line">    build(<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span> * n + <span class="number">10</span>);</span><br><span class="line">    ans = t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) a[i].clear(), b[i].clear();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, x, y; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        a[x].push_back(y);</span><br><span class="line">        a[y].push_back(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, x, y; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        b[x].push_back(y);</span><br><span class="line">        b[y].push_back(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dfn(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="xay-loves-count"><a href="#xay-loves-count" class="headerlink" title="xay loves count"></a><a href="https://ac.nowcoder.com/acm/contest/11258/H" target="_blank" rel="noopener">xay loves count</a></h1><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p>给定一个数组($0&lt;a_i&lt;10^6$)，求有多少对$a_i \times a_j=a_k$</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>观察到$a_i$很小，保存每个数字出现的次数，用类似筛质数的方法就可以处理出所有的答案了。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 压行压的玩的</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line">ll n, cnt[N], ans = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, x; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; x, cnt[x]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++) </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j * i &lt; N; j++) ans += cnt[j] * cnt[i] * cnt[i * j];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="xay-loves-Floyd"><a href="#xay-loves-Floyd" class="headerlink" title="xay loves Floyd"></a><a href="https://ac.nowcoder.com/acm/contest/11258/J" target="_blank" rel="noopener">xay loves Floyd</a></h1><h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><p>众所周知，Floyd的正确顺序是k-i-j，但是如果写成i-j-k，会有多少个最短距离是正确的呢？</p>
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>先对每一个点跑一遍dij，算出最短距离的正确答案，然后遍历每一条边$(u, v)$，如果这条边的距离等于$dis[u][v]$，那么就说明这条边一定可以，我们用$ok[i][j]$代表$dis[i][j]$会是正确的。那么我们可以模拟i-j-k的运算，如果有<code>ok[i][k] &amp;&amp; ok[k][j] &amp;&amp; dis[i][j] == dis[i][k] + dis[k][j]</code>(意思是：(i, k)和(k, j)是正确的，并且k点可以作为i、j的中转点)那么我们就可以$ok[i][j]$赋为1了。</p>
+<p>但是这样的复杂度是$O(nm\log n + n^3)$会T，需要稍作优化。</p>
+<p>我们可以每次处理到$ok[i][k]$为1时，我们可以额外用一个vector储存k值，这样我们就可以不用遍历所有的k了。</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">2010</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> INF = <span class="number">5e8</span>;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> w first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> t second</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; node;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; e[N];</span><br><span class="line"><span class="keyword">int</span> min_e[N][N];</span><br><span class="line"><span class="keyword">bool</span> ok[N][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dij</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            min_e[i][j] = INF;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">bitset</span>&lt;N&gt; vis;</span><br><span class="line">        priority_queue&lt;node, <span class="built_in">vector</span>&lt;node&gt;, greater&lt;&gt; &gt; pq;</span><br><span class="line">        pq.push(&#123;<span class="number">0</span>, i&#125;);</span><br><span class="line">        <span class="keyword">while</span> (!pq.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = pq.top().t, w = pq.top().w;</span><br><span class="line">            pq.pop();</span><br><span class="line">            <span class="keyword">if</span> (vis[j]) <span class="keyword">continue</span>;</span><br><span class="line">            vis[j] = <span class="number">1</span>;</span><br><span class="line">            min_e[i][j] = w;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> k: e[j]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (vis[k.t]) <span class="keyword">continue</span>;</span><br><span class="line">                pq.push(&#123;k.w + min_e[i][j], k.t&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; g[N];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        in(x, y, z);</span><br><span class="line">        e[x].push_back(&#123;z, y&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dij();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">// 关键代码 50-76</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> j: e[i]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (min_e[i][j.t] == j.w) &#123;</span><br><span class="line">                ok[i][j.t] = <span class="number">1</span>;</span><br><span class="line">                g[i].push_back(j.t);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (min_e[i][j] == INF || ok[i][j] || i == j) &#123;</span><br><span class="line">                ans++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k : g[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (ok[k][j] &amp;&amp; min_e[i][j] == min_e[i][k] + min_e[k][j]) &#123;</span><br><span class="line">                    ok[i][j] = <span class="number">1</span>;</span><br><span class="line">                    g[i].push_back(j);</span><br><span class="line">                    ans++;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A16/" rel="prev" title="2021杭电多校6">
+      <i class="fa fa-chevron-left"></i> 2021杭电多校6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A18/" rel="next" title="2021牛客多校8">
+      2021牛客多校8 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xay-loves-trees"><span class="nav-number">1.</span> <span class="nav-text">xay loves trees</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xay-loves-count"><span class="nav-number">2.</span> <span class="nav-text">xay loves count</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xay-loves-Floyd"><span class="nav-number">3.</span> <span class="nav-text">xay loves Floyd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">3.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhang"
+      src="/blog/images/header.jpeg">
+  <p class="site-author-name" itemprop="name">zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhang185a.gitee.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Fall with Trees题目给一颗深度为k的完全二叉树，满足一下几个条件：每个节点的x坐标是其所有子节点的平均值；每层的y坐标相同；相邻的两层的y坐标差值相同。求这个二叉树的面积。 思路快速幂+直接计算或者用开vector+push_back的话会T，不知道是不是测评机赛后慢的原因  代码123456789101112131415161718int const N &#x3D; 1e4 + 10;do">
+<meta property="og:type" content="article">
+<meta property="og:title" content="张政宇-2021牛客9、10补题&#x2F;2021杭电多校7">
+<meta property="og:url" content="http://zhang185a.gitee.io/blog/%E5%BC%A0%E6%94%BF%E5%AE%87-2021%E7%89%9B%E5%AE%A29%E3%80%8110%E8%A1%A5%E9%A2%98/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A17/index.html">
+<meta property="og:site_name" content="Zhang185&#39;s blog">
+<meta property="og:description" content="Fall with Trees题目给一颗深度为k的完全二叉树，满足一下几个条件：每个节点的x坐标是其所有子节点的平均值；每层的y坐标相同；相邻的两层的y坐标差值相同。求这个二叉树的面积。 思路快速幂+直接计算或者用开vector+push_back的话会T，不知道是不是测评机赛后慢的原因  代码123456789101112131415161718int const N &#x3D; 1e4 + 10;do">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gtldink9byj60qa0s4ad602.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gtl1egbam0j60u40u0tcj02.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gtge8qq23qj60vt0u0q6402.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1gtgeb1lphqj61380d40ua02.jpg">
+<meta property="article:published_time" content="2021-08-18T15:53:14.000Z">
+<meta property="article:modified_time" content="2021-08-18T15:52:43.000Z">
+<meta property="article:author" content="zhang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1gtldink9byj60qa0s4ad602.jpg">
+
+<link rel="canonical" href="http://zhang185a.gitee.io/blog/%E5%BC%A0%E6%94%BF%E5%AE%87-2021%E7%89%9B%E5%AE%A29%E3%80%8110%E8%A1%A5%E9%A2%98/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A17/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>张政宇-2021牛客9、10补题/2021杭电多校7 | Zhang185's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhang185's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/%E5%BC%A0%E6%94%BF%E5%AE%87-2021%E7%89%9B%E5%AE%A29%E3%80%8110%E8%A1%A5%E9%A2%98/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          张政宇-2021牛客9、10补题/2021杭电多校7
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-18 23:53:14 / 修改时间：23:52:43" itemprop="dateCreated datePublished" datetime="2021-08-18T23:53:14+08:00">2021-08-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Fall-with-Trees"><a href="#Fall-with-Trees" class="headerlink" title="Fall with Trees"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7046" target="_blank" rel="noopener">Fall with Trees</a></h1><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给一颗深度为k的完全二叉树，满足一下几个条件：每个节点的x坐标是其所有子节点的平均值；每层的y坐标相同；相邻的两层的y坐标差值相同。求这个二叉树的面积。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>快速幂+直接计算或者用开vector+push_back的话会T，不知道是不是测评机赛后慢的原因</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gtldink9byj60qa0s4ad602.jpg" alt="image-20210818234649770"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e4</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">double</span> two[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> cur = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        two[i] = cur;</span><br><span class="line">        cur /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k, xroot, yroot, xl, yl, xr, yr;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k &gt;&gt; xroot &gt;&gt; yroot &gt;&gt; xl &gt;&gt; yl &gt;&gt; xr &gt;&gt; yr;</span><br><span class="line">    k--;</span><br><span class="line">    <span class="keyword">double</span> ans = (<span class="number">2</span> * k - <span class="number">3</span> + <span class="number">3</span> * two[k]) * (xr - xl) * (yroot - yr);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.3lf\n"</span>, ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Link-with-Balls"><a href="#Link-with-Balls" class="headerlink" title="Link with Balls"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7047" target="_blank" rel="noopener">Link with Balls</a></h1><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p>给2n个盒子，其中奇数位置$pos=2x-1$​上的盒子可以拿出$kx$​个球，偶数位置$pos=2x$​上的盒子可以拿$0\sim x$个球，求要拿m个球的情况数量</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1gtl1egbam0j60u40u0tcj02.jpg" alt="image-20210818164727383"></p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int ll</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">ll fac[<span class="number">2</span> * N], rev[<span class="number">2</span> * N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qpow</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>) (ret *= x) %= mod;</span><br><span class="line">        (x *= x) %= mod;</span><br><span class="line">        y &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">2</span> * N; i++) &#123;</span><br><span class="line">        fac[i] = fac[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    rev[<span class="number">0</span>] = rev[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; N; i++) &#123;</span><br><span class="line">        rev[i] = qpow(fac[i], mod - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; y) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> (fac[x] * rev[x - y]) % mod * rev[y] % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ((C(m + n, n) - C(m - <span class="number">1</span>, n)) % mod + mod) % mod &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Link-with-EQ"><a href="#Link-with-EQ" class="headerlink" title="Link with EQ"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7048" target="_blank" rel="noopener">Link with EQ</a></h1><h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><p>有一列长为n的椅子，第一个人随便坐那，之后的每个人都会选这样一个位置使得 他到最近的人的距离最大</p>
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>定义$dp[len]$表示在一个长度为len的区间（这个区间最左边的左边一格坐了人，最右边的右边一个也坐了人）内选择座位的情况。</p>
+<p>转移：$dp[len] = \begin{cases} 0 &amp; len\le2 \ 1+dp[\lfloor len/2 \rfloor]+dp[len-\lfloor len/2 \rfloor-1] &amp; len&gt;2 \end{cases}$</p>
+<p>那么第一个人选择坐在i位置后，总人数$ans[i]=\begin{cases}2+dp[n-i-1] &amp; i\lt3 \ 3+dp[i-2]+dp[n-i-1] &amp; 3\le i\le n-2 \2+dp[i-2] &amp; i\gt n-2 \end{cases}$​</p>
+<p>最终的答案就是$\sum_{i=1}^n dp[i]$，这样的复杂度是$O(n^2)$。</p>
+<p>观察之后发现其实$\sum_{i=1}^n dp[i]$还能进一步化简为$\begin{cases} 2\times{3(\frac n2-2)+4+\sum_{i=1}^{n-2}dp[i]}&amp;n&amp;1=0 \ 2\times{3(\frac n2-2)+4+\sum_{i=1}^{n-2}dp[i]}+3&amp;n&amp;1=1 \end{cases} $</p>
+<p>因此只要处理一下dp的前缀和即可，复杂度$O(n)$</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">3</span>; len &lt; N; len++) &#123;</span><br><span class="line">        (a[len] = <span class="number">1</span> + a[len / <span class="number">2</span>] + a[len - len / <span class="number">2</span> - <span class="number">1</span>]) %= P;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; N; i++) &#123;</span><br><span class="line">        (a[i] += a[i - <span class="number">1</span>]) %= P;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> tmp = <span class="number">3</span> * (n / <span class="number">2</span> - <span class="number">2</span>) + <span class="number">4</span> + a[n - <span class="number">2</span>];</span><br><span class="line">    tmp = <span class="number">2</span> * tmp;</span><br><span class="line">    <span class="keyword">if</span> (n &amp; <span class="number">1</span>) tmp += <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; tmp * qpow(n, P - 2) % P &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Link-with-Grenade"><a href="#Link-with-Grenade" class="headerlink" title="Link with Grenade"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7049" target="_blank" rel="noopener">Link with Grenade</a></h1><h3 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h3><p>一个人在空中扔炸弹，已知炸弹的初速度、爆炸时间和爆炸范围，但是不知道丢出去的角度，求这个人存活的概率</p>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>（看了答案才发现，好像我想简单了，好像正确的应该是要考虑表面积什么什么的，但是我这正好瞎猫碰着死耗子算出来了）</p>
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gtge8qq23qj60vt0u0q6402.jpg" alt="image-20210814162402603" style="zoom:50%;" />
+
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int ll</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> P = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qpow</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>) (ret *= x) %= P;</span><br><span class="line">        (x *= x) %= P;</span><br><span class="line">        y &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> g = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> t, v, r;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; t &gt;&gt; v &gt;&gt; r;</span><br><span class="line">    <span class="keyword">int</span> A = <span class="number">4</span> * g * t * t * t * v;</span><br><span class="line">    <span class="keyword">int</span> B = <span class="number">4</span> * (r * r - v * v * t * t) - g * g * t * t * t * t;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">abs</span>(B) &gt;= <span class="built_in">abs</span>(A)) <span class="built_in">cout</span> &lt;&lt; <span class="keyword">int</span>((B / <span class="built_in">abs</span>(B)) * (A / <span class="built_in">abs</span>(A)) == <span class="number">-1</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; ((A - B + P)) % P * qpow(<span class="number">2</span> * A, P - <span class="number">2</span>) % P &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Link-with-Limit"><a href="#Link-with-Limit" class="headerlink" title="Link with Limit"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7050" target="_blank" rel="noopener">Link with Limit</a></h1><h3 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h3><p>很难描述，看图：<img src="https://tva1.sinaimg.cn/large/008i3skNly1gtgeb1lphqj61380d40ua02.jpg" alt="image-20210814162619046" style="zoom:33%;" /></p>
+<h3 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h3><p>可以转化为一个图，如果这个图中有环，那么各个环上的点的平均值、链的终点应该相同（因为是取极限）</p>
+<p>那么可以用DFS找到环和其平均值</p>
+<p>还有其他很多种方法，比如用拓扑排序的方法做</p>
+<h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n, a[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> cnt, len, col;</span><br><span class="line">&#125;;</span><br><span class="line">node vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y == <span class="number">0</span> ? x : gcd(y, x % y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; avg = &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">bool</span> fail = <span class="number">0</span>;</span><br><span class="line">node cur;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> color)</span> </span>&#123;</span><br><span class="line">    cur.len += x;</span><br><span class="line">    cur.cnt++;</span><br><span class="line">    <span class="keyword">if</span> (vis[x].col) &#123;</span><br><span class="line">        <span class="keyword">if</span> (vis[x].col == color) &#123;</span><br><span class="line">            <span class="keyword">int</span> A = cur.cnt - vis[x].cnt, B = cur.len - vis[x].len;</span><br><span class="line">            <span class="keyword">int</span> g = gcd(A, B);</span><br><span class="line">            A /= g, B /= g;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (avg.first == <span class="number">-1</span>) &#123;</span><br><span class="line">                avg = &#123;A, B&#125;;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (avg.first != A || avg.second != B) &#123;</span><br><span class="line">                fail = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vis[x] = cur;</span><br><span class="line">    dfs(a[x], color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    </span><br><span class="line">    fail = <span class="number">0</span>;</span><br><span class="line">    avg = &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) vis[i].col = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cur = &#123;<span class="number">0</span>, <span class="number">0</span>, i&#125;;</span><br><span class="line">        dfs(i, i);</span><br><span class="line">        <span class="keyword">if</span> (fail) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"NO"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"YES"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Smzzl-with-Greedy-Snake"><a href="#Smzzl-with-Greedy-Snake" class="headerlink" title="Smzzl with Greedy Snake"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7051" target="_blank" rel="noopener">Smzzl with Greedy Snake</a></h1><h3 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h3><p>模拟贪吃蛇游戏</p>
+<p>给你其实位置和各个食物的位置，每次吃掉一个才会出现下一个，求最短距离</p>
+<h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><p><strong>模拟</strong></p>
+<p>一个经验：以后写大模拟先想清楚，这样就能少写很多if-else 妙🐸妙🐸</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> U cout&lt;&lt;<span class="meta-string">'u'</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> F cout&lt;&lt;<span class="meta-string">'f'</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> C cout&lt;&lt;<span class="meta-string">'c'</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//       x  y</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; DIR[<span class="number">2</span>][<span class="number">2</span>] = &#123;&#123;&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;&#125;,</span><br><span class="line">                          &#123;&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> go[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>,  <span class="number">1</span>&#125;,</span><br><span class="line">                &#123;<span class="number">1</span>,  <span class="number">0</span>&#125;,</span><br><span class="line">                &#123;<span class="number">0</span>,  <span class="number">-1</span>&#125;,</span><br><span class="line">                &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y, d, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; d &gt;&gt; m;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx, ty;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tx &gt;&gt; ty;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; cur = DIR[tx &gt; x][ty &gt; y];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> zzy = <span class="number">1</span>; zzy &gt;= <span class="number">0</span>; zzy--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (zzy == <span class="number">1</span> &amp;&amp; cur[d]) &#123;&#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cur[(d + <span class="number">1</span>) % <span class="number">4</span>]) &#123;</span><br><span class="line">                C;</span><br><span class="line">                d = (d + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cur[(d + <span class="number">3</span>) % <span class="number">4</span>]) &#123;</span><br><span class="line">                U;</span><br><span class="line">                d = (d + <span class="number">3</span>) % <span class="number">4</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 现在方向一定是对的了</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> cnt = (tx != x) + (ty != y);</span><br><span class="line">                <span class="keyword">if</span> (cnt == zzy) <span class="keyword">break</span>;</span><br><span class="line">                x += go[d][<span class="number">0</span>], y += go[d][<span class="number">1</span>];</span><br><span class="line">                F;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Yiwen-with-Sqc"><a href="#Yiwen-with-Sqc" class="headerlink" title="Yiwen with Sqc"></a><a href="https://acm.hdu.edu.cn/showproblem.php?pid=7055" target="_blank" rel="noopener">Yiwen with Sqc</a></h1><h3 id="题目-6"><a href="#题目-6" class="headerlink" title="题目"></a>题目</h3><p>给定一个字符串，对于每一个区间中的每一种字母，求其出现的数量的平方和</p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><strong>前缀和</strong></p>
+<p>处理有点类似于<a href="https://acm.hdu.edu.cn/showproblem.php?pid=7020" target="_blank" rel="noopener">杭电5的Array</a>，只不过这题不用线段树/树状数组维护罢了</p>
+<p>枚举26个字母，记$a_i$为该字符在原字符串中的位置，每项的长度$len_i=a_{i+1}-a_i$​。</p>
+<p>枚举每一个终点i，<br>$$<br>\begin{aligned}<br>ans_k&amp;= \sum_{i=0}^{n} \sum_{j=0}^{i-1} len_i\times len_j\times(i-j)^2 \<br>   &amp;= \sum_{i=0}^{n} \sum_{j=0}^{i-1} len_i\times len_j\times(i^2-2ij+j^2) \<br>   &amp;= \sum_{i=0}^{n} \sum_{j=0}^{i-1} len_i\times[i^2(len_j)-2i(jlen_j)+(j^2len_j)] \<br>   &amp;= \sum_{i=0}^{n} len_i\times[i^2(\sum_{j=0}^{i-1}len_j)-2i(\sum_{j=0}^{i-1}jlen_j)+(\sum_{j=0}^{i-1}j^2len_j)]<br>\end{aligned}<br>$$<br>因此我们只要维护三个标记$\begin{cases}l_1=\sum len_j \ l_2=\sum j\times len_j \ l_3=\sum j^2\times len_j \end{cases}$​</p>
+<p>最终的答案就是$ans=\sum i^2l_1-2il_2+l_3$​</p>
+<p>5555555比赛的时候写出来了，肋木了</p>
+<h3 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">26</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> P = <span class="number">998244353</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> len = s.length();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        a[i].clear();</span><br><span class="line">        a[i].push_back(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123; </span><br><span class="line">        a[s[i] - <span class="string">'a'</span>].push_back(i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;cur: a) &#123;</span><br><span class="line">        <span class="keyword">int</span> sz = cur.size();</span><br><span class="line">        cur.push_back(len + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; sz; j++) &#123;</span><br><span class="line">            cur[j] = cur[j + <span class="number">1</span>] - cur[j];</span><br><span class="line">        &#125;</span><br><span class="line">        cur.pop_back();</span><br><span class="line">        ll l1 = <span class="number">0</span>, l2 = <span class="number">0</span>, l3 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (ll i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            (ans += (((((l1 * i) % P * i) % P - (<span class="number">2</span> * i * l2) % P) % P + l3) % P) * cur[i] % P) %= P;</span><br><span class="line">            (l1 += cur[i]) %= P;</span><br><span class="line">            (l2 += (i * cur[i]) % P) %= P;</span><br><span class="line">            (l3 += (i * i) % P * cur[i] % P) %= P;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; (ans + P) % P &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A18/" rel="prev" title="2021杭电多校8">
+      <i class="fa fa-chevron-left"></i> 2021杭电多校8
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/%E5%BC%A0%E6%94%BF%E5%AE%87-2021%E7%89%9B%E5%AE%A29%E3%80%8110%E8%A1%A5%E9%A2%98/2021%E6%9D%AD%E7%94%B5%E5%A4%9A%E6%A0%A18/" rel="next" title="张政宇-2021牛客9、10补题/2021杭电多校8">
+      张政宇-2021牛客9、10补题/2021杭电多校8 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fall-with-Trees"><span class="nav-number">1.</span> <span class="nav-text">Fall with Trees</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-with-Balls"><span class="nav-number">2.</span> <span class="nav-text">Link with Balls</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-with-EQ"><span class="nav-number">3.</span> <span class="nav-text">Link with EQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">3.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-with-Grenade"><span class="nav-number">4.</span> <span class="nav-text">Link with Grenade</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-3"><span class="nav-number">4.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-3"><span class="nav-number">4.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-with-Limit"><span class="nav-number">5.</span> <span class="nav-text">Link with Limit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-4"><span class="nav-number">5.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-4"><span class="nav-number">5.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-4"><span class="nav-number">5.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Smzzl-with-Greedy-Snake"><span class="nav-number">6.</span> <span class="nav-text">Smzzl with Greedy Snake</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-5"><span class="nav-number">6.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-5"><span class="nav-number">6.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-5"><span class="nav-number">6.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Yiwen-with-Sqc"><span class="nav-number">7.</span> <span class="nav-text">Yiwen with Sqc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-6"><span class="nav-number">7.0.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-6"><span class="nav-number">7.0.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-6"><span class="nav-number">7.0.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhang"
+      src="/blog/images/header.jpeg">
+  <p class="site-author-name" itemprop="name">zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

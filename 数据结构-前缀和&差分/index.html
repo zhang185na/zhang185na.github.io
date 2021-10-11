@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhang185a.gitee.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前缀和&amp;差分性质 在模数为 $n$​ ​​的情况下，对一个数组进行 $k$ ​​次求前缀和操作等于求 $k%n$ ​​​次。 差分操作是前缀和操作的逆运算，所以对一个数组求 $k$​​​​​ 次求差分等价于求 $-k$​​​ 次前缀和操作 对一段连续的序列加上一个多项式，如果多项式的最高次数为k，则做k+1次差分运算后，前k+1项有值，最后的余项为0。  例题智乃酱的子集与超集 多维前缀和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-前缀和&amp;差分">
+<meta property="og:url" content="http://zhang185a.gitee.io/blog/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%89%8D%E7%BC%80%E5%92%8C&%E5%B7%AE%E5%88%86/index.html">
+<meta property="og:site_name" content="Zhang185&#39;s blog">
+<meta property="og:description" content="前缀和&amp;差分性质 在模数为 $n$​ ​​的情况下，对一个数组进行 $k$ ​​次求前缀和操作等于求 $k%n$ ​​​次。 差分操作是前缀和操作的逆运算，所以对一个数组求 $k$​​​​​ 次求差分等价于求 $-k$​​​ 次前缀和操作 对一段连续的序列加上一个多项式，如果多项式的最高次数为k，则做k+1次差分运算后，前k+1项有值，最后的余项为0。  例题智乃酱的子集与超集 多维前缀和">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1guu791v5ffj61fr0g7q6802.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNly1guwbhvwuuij60u00z1q8h02.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008i3skNgy1guw5awhy26j614z0u0gpf02.jpg">
+<meta property="article:published_time" content="2021-09-26T07:55:57.113Z">
+<meta property="article:modified_time" content="2021-10-08T11:56:46.333Z">
+<meta property="article:author" content="zhang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008i3skNly1guu791v5ffj61fr0g7q6802.jpg">
+
+<link rel="canonical" href="http://zhang185a.gitee.io/blog/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%89%8D%E7%BC%80%E5%92%8C&%E5%B7%AE%E5%88%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据结构-前缀和&差分 | Zhang185's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhang185's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhang185a.gitee.io/blog/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%89%8D%E7%BC%80%E5%92%8C&%E5%B7%AE%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/header.jpeg">
+      <meta itemprop="name" content="zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhang185's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构-前缀和&差分
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-26 15:55:57" itemprop="dateCreated datePublished" datetime="2021-09-26T15:55:57+08:00">2021-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-08 19:56:46" itemprop="dateModified" datetime="2021-10-08T19:56:46+08:00">2021-10-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前缀和-amp-差分"><a href="#前缀和-amp-差分" class="headerlink" title="前缀和&amp;差分"></a>前缀和&amp;差分</h1><h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
+<li>在模数为 $n$​ ​​的情况下，对一个数组进行 $k$ ​​次求前缀和操作等于求 $k%n$ ​​​次。</li>
+<li>差分操作是前缀和操作的逆运算，所以对一个数组求 $k$​​​​​ 次求差分等价于求 $-k$​​​ 次前缀和操作</li>
+<li>对一段连续的序列加上一个多项式，如果多项式的最高次数为k，则做k+1次差分运算后，前k+1项有值，最后的余项为0。</li>
+</ol>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="智乃酱的子集与超集"><a href="#智乃酱的子集与超集" class="headerlink" title="智乃酱的子集与超集"></a><a href="https://ac.nowcoder.com/acm/contest/19483/B" target="_blank" rel="noopener">智乃酱的子集与超集</a></h3><ul>
+<li>多维前缀和</li>
+</ul>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>给一个数组($n\le20$)，代表每个物品的价值，定义一个集合的价值为这个集合所有物品的异或值，现有 $m$​ 次查询，每次选出一些物品，求这些物品的子集和超集的价值和</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>是一个多维前缀和的问题，一个二维前缀和中，有两种方法求一个位置的前缀和。</p>
+<ol>
+<li><code>a[i][j]=a[i][j-1]+a[i-1][j]-a[i-1][j-1]</code>（容斥原理）</li>
+<li><code>for(i=1;i&lt;=n;i++) a[i][j] += a[i-1][j]; for(i=1;i&lt;=n;i++) a[i][j] += a[i][j-1];</code></li>
+</ol>
+<p>第一种方法使用了容斥原理，因此不易向高维拓展。</p>
+<p>本题可以看做是一个20维的多维前缀和问题，暂时简化本问题，考虑一个 $n=3$​　​的情况，我们规定$ a[1][0][1] $​​代表只选择了1、3号物品的价值，那么这个集合的子集价值和就应该是 $a[0][0][0]+a[1][0][0]+a[0][0][1]+a[1][0][1]$，就等于三维情况下的前缀和。</p>
+<p>具体考虑如何实现，如果要单纯的像上面一样n等于多少就开一个多少维度的数组显然是不实际的，那么最后在写代码的时候就要用20个循环来嵌套了。因此可以用一个数的各位取0/1来代表是否选择各物品。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n, m, a[<span class="number">21</span>];</span><br><span class="line"><span class="keyword">int</span> w1[<span class="number">1</span> &lt;&lt; <span class="number">21</span>], w2[<span class="number">1</span> &lt;&lt; <span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">int</span> maxW = (<span class="number">1</span> &lt;&lt; n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxW; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((i &gt;&gt; j) &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                w1[i] ^= a[j];</span><br><span class="line">                w2[i] ^= a[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里要注意循环的顺序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxW; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((i &gt;&gt; j) &amp; <span class="number">1</span>) w1[i] += w1[i ^ (<span class="number">1</span> &lt;&lt; j)];</span><br><span class="line">            <span class="keyword">else</span> w2[i] += w2[i ^ (<span class="number">1</span> &lt;&lt; j)];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> cnt, num = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; cnt;</span><br><span class="line">        <span class="keyword">while</span> (cnt--) &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            x--;</span><br><span class="line">            num += (<span class="number">1</span> &lt;&lt; x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; w1[num] &lt;&lt; <span class="string">' '</span> &lt;&lt; w2[num] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="智乃酱的前缀和与差分"><a href="#智乃酱的前缀和与差分" class="headerlink" title="智乃酱的前缀和与差分"></a><a href="https://ac.nowcoder.com/acm/contest/19483/C" target="_blank" rel="noopener">智乃酱的前缀和与差分</a></h3><ul>
+<li>多次前缀和</li>
+</ul>
+<h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><p>给一个数组，求这个数组做k次前缀和/k次差分后的值</p>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><p><img src="https://tva1.sinaimg.cn/large/008i3skNly1guu791v5ffj61fr0g7q6802.jpg" alt="image-20210926182023551"></p>
+<p>（其实不是很懂，为什么会联系到卷积，就是说我明白这里“恰好”是卷积的形式，但是是为啥呢）</p>
+<p>观察上面可以得到，<strong>a数组第k次做前缀和</strong>等于<strong>一个全为1的数组做k-1次前缀和后得到的数组与a数组做卷积</strong>，众所周知，卷积的复杂度是$O(nlogn)$。</p>
+<p>如何求出全为1的数组的前缀和数组呢？我们规定 <code>dp[i][j]</code>为第i次做前缀和得到的数组的第j项，那么就有<code>dp[i][j] = dp[i-1][j] + dp[i][j]</code>，和下面这个问题的递推公式相同：“在一个棋盘上移动，从(1, 1)出发，每次只能向下或者向右移动，问移动到(i, j)有多少种移动的方法”，这实际上就是一个高中学的组合数问题，答案就是$C_{i+j}^{i}$​​，那么本题的dp也同样等于这个式子。</p>
+<p>根据最上面提到的性质，$k$​​ 可以被化简为 $(k % mod + mod) % mod$​​，那么最后卷一卷就出来答案了。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int ll</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">4e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n, k, a[N];</span><br><span class="line"><span class="keyword">int</span> b[N];</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qpow</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">const</span> mod = <span class="number">998244353</span>;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>) (ret *= x) %= mod;</span><br><span class="line">        (x *= x) %= mod;</span><br><span class="line">        y &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) ret;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> NTT &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> g = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> p = <span class="number">998244353</span>;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> wn[<span class="number">35</span>];</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">pow2</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (b &amp; <span class="number">1</span>) res = res * a % p;</span><br><span class="line">            a = a * a % p;</span><br><span class="line">            b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getwn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">25</span>; i++) wn[i] = pow2(g, (p - <span class="number">1</span>) / (<span class="number">1L</span>L &lt;&lt; i));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ntt</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> *a, <span class="keyword">int</span> len, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> i, j = <span class="number">0</span>, t, k, w, id;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (t = len; j ^= t &gt;&gt;= <span class="number">1</span>, ~j &amp; t;);</span><br><span class="line">            <span class="keyword">if</span> (i &lt; j) swap(a[i], a[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>, id = <span class="number">1</span>; i &lt; len; i &lt;&lt;= <span class="number">1</span>, id++) &#123;</span><br><span class="line">            t = i &lt;&lt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; len; j += t) &#123;</span><br><span class="line">                <span class="keyword">for</span> (k = <span class="number">0</span>, w = <span class="number">1</span>; k &lt; i; k++, w = w * wn[id] % p) &#123;</span><br><span class="line">                    <span class="keyword">long</span> <span class="keyword">long</span> x = a[j + k], y = w * a[j + k + i] % p;</span><br><span class="line">                    a[j + k] = (x + y) % p;</span><br><span class="line">                    a[j + k + i] = (x - y + p) % p;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (f) &#123;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">1</span>, j = len - <span class="number">1</span>; i &lt; j; i++, j--) swap(a[i], a[j]);</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> inv = pow2(len, p - <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) a[i] = a[i] * inv % p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> *a, <span class="keyword">long</span> <span class="keyword">long</span> *b, <span class="keyword">int</span> l1, <span class="keyword">int</span> l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len, i;</span><br><span class="line">        <span class="keyword">for</span> (len = <span class="number">1</span>; len &lt;= l1 + l2; len &lt;&lt;= <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (i = l1 + <span class="number">1</span>; i &lt;= len; i++) a[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i = l2 + <span class="number">1</span>; i &lt;= len; i++) b[i] = <span class="number">0</span>;</span><br><span class="line">        ntt(a, len, <span class="number">0</span>);</span><br><span class="line">        ntt(b, len, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) a[i] = a[i] * b[i] % p;</span><br><span class="line">        ntt(a, len, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    NTT::getwn();</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    k = (k % mod + mod) % mod;</span><br><span class="line"> </span><br><span class="line">    b[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        b[i] = b[i - <span class="number">1</span>] * (k - <span class="number">1</span> + i) % mod * qpow(i , mod - <span class="number">2</span>) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    NTT::mul(a, b, n, n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)<span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="智乃酱的静态数组维护问题多项式"><a href="#智乃酱的静态数组维护问题多项式" class="headerlink" title="智乃酱的静态数组维护问题多项式"></a><a href="https://ac.nowcoder.com/acm/contest/19483/D" target="_blank" rel="noopener">智乃酱的静态数组维护问题多项式</a></h3><h4 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h4><p>给一个数组，每次可以对一个位置开始的一段连续区间加上一个多项式，求数次操作后的最终值。</p>
+<h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>假设有一个全0的数组，现在希望对[3,4]加上$3x^2+9x+7$</p>
+<p>则对这个多项式数次差分后可以得到：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1guwbhvwuuij60u00z1q8h02.jpg" alt="image-20210928141826983"></p>
+<p>因为本题多项式次数最高为5，那么最多差分6次就可以了。我们就将原数组、多项式、多项式的弥补式都做6次差分，然后相加，最后再做前缀和还原即可。因为本题要求区间和，所以再多做一次前缀和以求区间和。</p>
+<p>其实之前在杭电多校2的<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6962" target="_blank" rel="noopener">I love tree</a>的时候就遇到过对区间加平方的操作了，只不过当时是用线段树维护了三个标记以还原数组的。现在知道了可以先求三次差分这种了。</p>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int ll</span></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> n, m, q;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">P</span><span class="params">(<span class="keyword">int</span> aa[], <span class="keyword">int</span> len, <span class="keyword">int</span> k)</span> </span>&#123; <span class="comment">// 对a做k次前缀和</span></span><br><span class="line">    <span class="keyword">while</span> (k--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++) (aa[i] += aa[i - <span class="number">1</span>]) %= mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">M</span><span class="params">(<span class="keyword">int</span> aa[], <span class="keyword">int</span> len, <span class="keyword">int</span> k)</span> </span>&#123; <span class="comment">// 对a做k次差分</span></span><br><span class="line">    <span class="keyword">while</span> (k--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = len; i &gt;= <span class="number">1</span>; i--) aa[i] = ((aa[i] - aa[i - <span class="number">1</span>]) % mod + mod) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">F</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; f, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = f.size();</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> xx = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        (ans += f[i] * xx % mod) %= mod;</span><br><span class="line">        (xx *= x) %= mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">G</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; f, <span class="keyword">int</span> x, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (mod - F(f, x + len)) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> b[<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line"></span><br><span class="line">    M(a, n, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> l, r, k;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; l &gt;&gt; r &gt;&gt; k;</span><br><span class="line">        k++;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">        <span class="keyword">while</span> (k--) &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            v.push_back(x);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) b[i] = F(v, i);</span><br><span class="line">        M(b, <span class="number">10</span>, <span class="number">6</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= l + <span class="number">10</span>; i++) (a[i] += b[i - l + <span class="number">1</span>]) %= mod;</span><br><span class="line">        r++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) b[i] = G(v, i, r - l);</span><br><span class="line">        M(b, <span class="number">10</span>, <span class="number">6</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = r; i &lt;= r + <span class="number">10</span>; i++) (a[i] += b[i - r + <span class="number">1</span>]) %= mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    P(a, n, <span class="number">7</span>);</span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        <span class="keyword">int</span> l, r;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; l &gt;&gt; r;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ((a[r] - a[l - <span class="number">1</span>]) % mod + mod) % mod &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="智乃酱的双塔问题"><a href="#智乃酱的双塔问题" class="headerlink" title="智乃酱的双塔问题"></a><a href="https://ac.nowcoder.com/acm/contest/19483/E" target="_blank" rel="noopener">智乃酱的双塔问题</a></h3><h4 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h4><p>有两座房子，每座房子内部都有从i楼通往i+1楼的楼梯，同时两个房子中间也有通往另一个房子的楼梯</p>
+<h4 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h4><p>规定 $dp[start_x][start_y][end_x][end_y]$​ 为从 $(start_x, start_y)$​ 到 $(end_x, end_y)$​ 的方式总数。</p>
+<p>dp的转移方程很容易得到。</p>
+<p>如下图1号线段，表示 $dp[0][1][0][start_y]$​​ (从$(0, 1)$到$(0, start_y)$​)。</p>
+<p>那么根据图中列的式子，就可以求出ans了。</p>
+<p>同时，由于式子都是有第一层出发的，因此可以删除第二个维度，以满足空间要求。</p>
+<p>（标程好像是直接把这个前缀和操作转换为了一个矩阵操作，这。。属实是想不到。如果这题不在前缀和专题里我估计也想不到。。）</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNgy1guw5awhy26j614z0u0gpf02.jpg" alt="IMG_0799"></p>
+<h4 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> P = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qpow</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">    ll ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (y &amp; <span class="number">1</span>) (ret *= x) %= P;</span><br><span class="line">        (x *= x) %= P;</span><br><span class="line">        y &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>) ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">2</span>][<span class="number">2</span>][N];</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line"></span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>] = dp[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        (dp[<span class="number">0</span>][<span class="number">0</span>][i] = dp[<span class="number">0</span>][<span class="number">0</span>][i - <span class="number">1</span>] + (s[i - <span class="number">2</span>] == <span class="string">'\\'</span> ? dp[<span class="number">0</span>][<span class="number">1</span>][i - <span class="number">1</span>] : <span class="number">0</span>)) %= mod;</span><br><span class="line">        (dp[<span class="number">1</span>][<span class="number">0</span>][i] = dp[<span class="number">1</span>][<span class="number">0</span>][i - <span class="number">1</span>] + (s[i - <span class="number">2</span>] == <span class="string">'\\'</span> ? dp[<span class="number">1</span>][<span class="number">1</span>][i - <span class="number">1</span>] : <span class="number">0</span>)) %= mod;</span><br><span class="line"></span><br><span class="line">        (dp[<span class="number">0</span>][<span class="number">1</span>][i] = dp[<span class="number">0</span>][<span class="number">1</span>][i - <span class="number">1</span>] + (s[i - <span class="number">2</span>] == <span class="string">'/'</span> ? dp[<span class="number">0</span>][<span class="number">0</span>][i - <span class="number">1</span>] : <span class="number">0</span>)) %= mod;</span><br><span class="line">        (dp[<span class="number">1</span>][<span class="number">1</span>][i] = dp[<span class="number">1</span>][<span class="number">1</span>][i - <span class="number">1</span>] + (s[i - <span class="number">2</span>] == <span class="string">'/'</span> ? dp[<span class="number">1</span>][<span class="number">0</span>][i - <span class="number">1</span>] : <span class="number">0</span>)) %= mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="keyword">int</span> x1, y1, x2, y2;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; y1 &gt;&gt; y2 &gt;&gt; x1 &gt;&gt; x2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> l1 = dp[<span class="number">0</span>][<span class="number">0</span>][y1], l2 = dp[<span class="number">1</span>][<span class="number">0</span>][y1], l3 = dp[<span class="number">0</span>][<span class="number">1</span>][y1], l4 = dp[<span class="number">1</span>][<span class="number">1</span>][y1];</span><br><span class="line">        <span class="keyword">int</span> l7 = dp[<span class="number">0</span>][x2][y2], l8 = dp[<span class="number">1</span>][x2][y2];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> tmp = ((l1 * l4 % mod - l2 * l3 % mod) % mod + mod) % mod;</span><br><span class="line">        tmp = qpow(tmp, mod - <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">int</span> ans;</span><br><span class="line">        <span class="keyword">if</span> (x1 == <span class="number">0</span>) &#123;</span><br><span class="line">            ans = ((l4 * l7 % mod - l3 * l8 % mod) % mod + mod) % mod;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ans = ((l1 * l8 % mod - l2 * l7 % mod) % mod + mod) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = tmp * ans % mod;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="积木大赛"><a href="#积木大赛" class="headerlink" title="积木大赛"></a><a href="https://ac.nowcoder.com/acm/contest/19483/I" target="_blank" rel="noopener">积木大赛</a></h3><ul>
+<li>我用的是单调栈</li>
+</ul>
+<h4 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h4><p>给一段区间，有这样的操作：每次选择一段连续的区间，给这个区间的所有值减1，求最少操作多少次可以使得这个数组变为全0。</p>
+<h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p>单调栈的话：维护一个单调上升的单调栈，每次遍历到一个元素时候，如果比栈顶元素大，则ans+=当前值-栈顶元素，同时push进单调栈，如果当前值小于栈顶元素，则不断pop栈顶元素直到该条件不满足，然后push进单调栈中。</p>
+<p>差分的话：将原数组做一次差分，然后每次ans+=max(0, a[i])。秒啊。</p>
+<h4 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> N = <span class="number">100000</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">        <span class="keyword">if</span> (s.empty() || x &gt; s.back()) &#123;</span><br><span class="line">            ans += x - (s.empty() ? <span class="number">0</span> : s.back());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!s.empty() &amp;&amp; x &lt;= s.back()) &#123;</span><br><span class="line">            s.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        s.push_back(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A110/" rel="prev" title="2021牛客多校10">
+      <i class="fa fa-chevron-left"></i> 2021牛客多校10
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/CFedu114-2-D-%E9%80%89%E8%A3%85%E5%A4%87/" rel="next" title="CFedu114(2)D 选装备">
+      CFedu114(2)D 选装备 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前缀和-amp-差分"><span class="nav-number">1.</span> <span class="nav-text">前缀和&amp;差分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">1.1.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">1.2.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#智乃酱的子集与超集"><span class="nav-number">1.2.1.</span> <span class="nav-text">智乃酱的子集与超集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智乃酱的前缀和与差分"><span class="nav-number">1.2.2.</span> <span class="nav-text">智乃酱的前缀和与差分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-1"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智乃酱的静态数组维护问题多项式"><span class="nav-number">1.2.3.</span> <span class="nav-text">智乃酱的静态数组维护问题多项式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-2"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智乃酱的双塔问题"><span class="nav-number">1.2.4.</span> <span class="nav-text">智乃酱的双塔问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-3"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-3"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-3"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#积木大赛"><span class="nav-number">1.2.5.</span> <span class="nav-text">积木大赛</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-4"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-4"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-4"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhang"
+      src="/blog/images/header.jpeg">
+  <p class="site-author-name" itemprop="name">zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
